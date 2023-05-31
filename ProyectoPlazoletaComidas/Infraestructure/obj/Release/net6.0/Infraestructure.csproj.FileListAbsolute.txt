@@ -1,0 +1,17 @@
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Infraestructure.deps.json
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Infraestructure.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Infraestructure.pdb
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Aplicacion.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Dominio.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Aplicacion.pdb
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\bin\Release\net6.0\Dominio.pdb
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.csproj.AssemblyReference.cache
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.AssemblyInfoInputs.cache
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.AssemblyInfo.cs
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.csproj.CopyComplete
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\refint\Infraestructure.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\Infraestructure.pdb
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidas\Infraestructure\obj\Release\net6.0\ref\Infraestructure.dll
