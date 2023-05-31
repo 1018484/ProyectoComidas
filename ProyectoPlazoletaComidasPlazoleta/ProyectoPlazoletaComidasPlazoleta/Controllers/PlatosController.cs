@@ -52,7 +52,7 @@ namespace PlazoletaComidas.Controllers
 
                 var servicio = PlatoServicio();
                 servicio.Agregar(plato, int.Parse(getClaims.Id));
-                return Ok("Se ingreso correctamente");
+                return Ok("El plato se ingreso correctamente");
 
             }
             catch(Exception e)
@@ -79,7 +79,7 @@ namespace PlazoletaComidas.Controllers
 
                 var servicio = PlatoServicio();
                 servicio.Editar(plato, int.Parse(getClaims.Id));
-                return Ok("Se ingreso correctamente");
+                return Ok("El plato se actualizo correctamente");
 
             } catch(Exception e)
             {
