@@ -18,7 +18,7 @@ using System.Net.Http.Headers;
 
 namespace HU1Test
 {
-    public class UnitTest1 
+    public class HU1Test 
     {        
         class apisubscripcion: WebApplicationFactory<Program> 
         {            
