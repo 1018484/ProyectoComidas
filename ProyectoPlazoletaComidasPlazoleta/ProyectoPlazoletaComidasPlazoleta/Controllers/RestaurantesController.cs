@@ -51,20 +51,20 @@ namespace Plazoleta.Controllers
         {
             try
             {
-                var getClaims = await getToken();
-                if (getClaims == null)
-                {
-                    return BadRequest("El usuario no ha iniciado sesion");
-                }
+                //var getClaims = await getToken();
+                //if (getClaims == null)
+                //{
+                //    return BadRequest("El usuario no ha iniciado sesion");
+                //}
 
-                if (int.Parse(getClaims.Rol) != (int)EnumRoles.Administrador)
-                {
-                    return BadRequest("usuario no tiene acceso para crear un restaurante");
-                }
+                //if (int.Parse(getClaims.Rol) != (int)EnumRoles.Administrador)
+                //{
+                //    return BadRequest("usuario no tiene acceso para crear un restaurante");
+                //}
 
                 var servicio = restauranteServicio();
                 await servicio.Agregar(restaurante);
-                return Ok("Reestaurante agregado");
+                return Ok("Restaurante agregado");
 
             }
             catch(Exception ex)
