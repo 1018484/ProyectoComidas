@@ -9,13 +9,14 @@ using Dominio.Repositorios;
 using Applicacion.Interfaces;
 using infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace infrastructure.Repositorios
 {
     public class UsuariosRepository : IRepositorioBase<Usuarios, int>
     {
-        private Db_Context db_context;
+        private Db_Context db_context;        
 
         public UsuariosRepository(Db_Context db_context) { 
         

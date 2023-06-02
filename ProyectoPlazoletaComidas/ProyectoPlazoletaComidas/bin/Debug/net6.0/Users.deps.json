@@ -12,10 +12,8 @@
           "BCrypt.Net-Next": "4.0.3",
           "Dominio": "1.0.0",
           "Infraestructure": "1.0.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.0",
           "Newtonsoft.Json": "6.0.3",
-          "Swashbuckle.AspNetCore": "6.2.3",
-          "System.IdentityModel.Tokens.Jwt": "6.30.1"
+          "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
           "Users.dll": {}
@@ -528,8 +526,10 @@
         "dependencies": {
           "Aplicacion": "1.0.0",
           "Dominio": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.0",
+          "System.IdentityModel.Tokens.Jwt": "6.30.1"
         },
         "runtime": {
           "Infraestructure.dll": {}

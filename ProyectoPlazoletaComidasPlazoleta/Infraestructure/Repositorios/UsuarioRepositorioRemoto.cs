@@ -1,16 +1,18 @@
 ﻿using Dominio.Modelos;
 using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+
 
 namespace Infraestructure.Repositorios
 {
     public class UsuarioRepositorioRemoto : IRepositorioUsuariosRemoto<Usuarios, int>
     {       
 
-        private HttpClient _httpClient;             
+        private HttpClient _httpClient;        
 
         public UsuarioRepositorioRemoto(HttpClient httpClient)
         {            

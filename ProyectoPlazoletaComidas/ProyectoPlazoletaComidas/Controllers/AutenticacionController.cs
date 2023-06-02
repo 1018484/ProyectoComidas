@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Infraestructure.Repositorios;
+using Newtonsoft.Json;
 
 namespace PlazoletaComidas.Controllers
 {
@@ -35,7 +37,8 @@ namespace PlazoletaComidas.Controllers
         {
             Db_Context db = new Db_Context();
             UsuariosRepository usuariosRepository = new UsuariosRepository(db);
-            UsuariosServicio usuariosServicio = new UsuariosServicio(usuariosRepository);
+            RolesRepositorio rolesRepositorio = new RolesRepositorio(HttpContext);
+            UsuariosServicio usuariosServicio = new UsuariosServicio(usuariosRepository, rolesRepositorio);
             return usuariosServicio;
         }
 
@@ -84,5 +87,38 @@ namespace PlazoletaComidas.Controllers
             }
         }
 
-    }
+
+        [HttpGet("{token}")]        
+        public ActionResult<UsuarioClaims> ValidadRol(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(secretkey);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                UsuarioClaims claims = new UsuarioClaims()
+                {
+                    Rol = jwtToken.Claims.First(x => x.Type == "Rol").Value,
+                    Id = jwtToken.Claims.First(x => x.Type == "ID").Value,
+                    Correo = jwtToken.Claims.First(x => x.Type == "Correo").Value
+                };
+
+                return claims;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }  
+
 }

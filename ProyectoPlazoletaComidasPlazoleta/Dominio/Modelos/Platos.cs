@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Dominio.Modelos
 {
     public class Platos
-    {
+    {     
+
         [Key]
         public int Id { get; set; }
 

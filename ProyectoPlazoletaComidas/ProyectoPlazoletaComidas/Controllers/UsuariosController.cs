@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 using Aplicacion.Validaciones;
 using Dominio.Repositorios;
+using Infraestructure.Repositorios;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -32,7 +33,8 @@ namespace PlazoletaComidas.Controllers
         {
             Db_Context db = new Db_Context();
             UsuariosRepository usuariosRepository = new UsuariosRepository(db);
-            UsuariosServicio usuariosServicio = new UsuariosServicio(usuariosRepository);
+            RolesRepositorio rolesRepositorio = new RolesRepositorio(HttpContext);
+            UsuariosServicio usuariosServicio = new UsuariosServicio(usuariosRepository, rolesRepositorio);
             return usuariosServicio;
         }
 
@@ -56,15 +58,7 @@ namespace PlazoletaComidas.Controllers
         public IActionResult CrearUsuarioPropietario([FromBody] Usuarios usuario)
         {
             try
-            {
-                //Validaciones val = new Validaciones();
-                //var identity = HttpContext.User.Identity as ClaimsIdentity;
-                //var rol = val.validartoken(identity);
-                //if (rol != "1")
-                //{
-                //    return BadRequest("usuario no tiene acceso para crear un Usuario Propietario");
-                //}
-
+            {               
                 usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
                 var servicio = UsuariosServicios();
                 servicio.AgregarPropietario(usuario);
@@ -81,15 +75,7 @@ namespace PlazoletaComidas.Controllers
         public IActionResult CrearUsuarioEmpleado([FromBody] Usuarios usuario)
         {
             try
-            {
-                Validaciones val = new Validaciones();
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                var rol = val.validartoken(identity);
-                if (rol != "2")
-                {
-                    return BadRequest("usuario no tiene acceso para crear un Usuario Empleado");
-                }
-
+            {              
                 usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
                 var servicio = UsuariosServicios();
                 servicio.AgregarEmpleado(usuario);

@@ -10,9 +10,9 @@ namespace Aplicacion.Interfaces
 {
     public interface IPlatosServicio<Tentidad, IDusuario>
     {
-        Tentidad Agregar(Tentidad entidad, IDusuario IDusuario);
+        Task<Tentidad> Agregar(Tentidad entidad, IDusuario IDusuario);
 
-        void Editar(Tentidad entidad, IDusuario IDusuario);
+        Task<Tentidad> EditarAsync(Tentidad entidad, IDusuario IDusuario);
 
 
     }

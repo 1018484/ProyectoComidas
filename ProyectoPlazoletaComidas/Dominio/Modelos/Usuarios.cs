@@ -13,7 +13,7 @@ namespace Dominio.Modelos
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         [Required]
-        public int DocumentoId { get; set; }
+        public int? DocumentoId { get; set; }
 
         [Required]
         public string Nombre { get; set; }

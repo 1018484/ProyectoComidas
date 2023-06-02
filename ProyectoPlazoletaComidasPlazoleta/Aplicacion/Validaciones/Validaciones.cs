@@ -29,11 +29,7 @@ namespace Aplicacion.Validaciones
             string Numero = telefono;
             if (telefono[0] == '+')
             {
-                Numero = telefono.Substring(1, telefono.Length - 1);
-                if (Numero.Length > 15)
-                {
-                    return false;
-                }
+                Numero = telefono.Substring(3, telefono.Length - 3);                
             }
 
             if (Numero.Length > 13)

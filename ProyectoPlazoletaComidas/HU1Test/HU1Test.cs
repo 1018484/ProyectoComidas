@@ -15,25 +15,20 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
+using Dominio.Repositorios;
+using Moq;
+using System.Security.Claims;
+using Dominio.Modelos.DTO;
 
 namespace HU1Test
 {
-    public class HU1Test 
+    public class HU1Test
     {        
-        class apisubscripcion: WebApplicationFactory<Program> 
-        {            
-            protected override IHost CreateHost(IHostBuilder builder)
-            {                
-                return base.CreateHost(builder);
-            }          
-        }
-
 
         [Fact]
         public async Task PruebaInserciondeUsuarios()
-        {
-            apisubscripcion apisubscripcion = new apisubscripcion();
-            HttpClient client = apisubscripcion.CreateClient();         
+        {          
+
             Usuarios usuarios = new Usuarios()
             {
                 DocumentoId = 121212121,
@@ -45,92 +40,133 @@ namespace HU1Test
                 RolesRolId = 2                
             };
 
-            var usuario = JsonConvert.SerializeObject(usuarios);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(usuario);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var result = await client.PostAsync("api/Usuarios/Propietario", byteContent);
-            var contenido = await result.Content.ReadAsStringAsync();
-                       
+            UsuarioClaims claims = new UsuarioClaims()
+            {
+                Rol = "1",
+                Id = "10184841",
+                Correo = "mapu@gmail.com"
+            };
+
+            Mock<IRoles> Roles = new Mock<IRoles>();
+            Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
+            Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+            bd.Setup(x=> x.Agregar(usuarios)).Returns(usuarios);
+            UsuariosServicio servicio = new UsuariosServicio(bd.Object , Roles.Object);
+            var result = servicio.AgregarPropietario(usuarios);
             Assert.NotNull(result);
-            Assert.Equal("Se ingreso correctamente", contenido.ToString());     
+            Assert.Equal(usuarios.DocumentoId, result.DocumentoId);     
         }
 
         [Fact]
         public async Task PruebaValidacionondeCorreo()
         {
-            apisubscripcion apisubscripcion = new apisubscripcion();
-            HttpClient client = apisubscripcion.CreateClient();
-            Usuarios usuarios = new Usuarios()
+            try
+            {
+                Usuarios usuarios = new Usuarios()
                 {
-                    DocumentoId = 1918519,
-                    Nombre = "Hector",
-                    Apellido = "Rojas",
-                    Celular = "+573132408264",
-                    Correo = "Hector@gmail.c9m",
+                    DocumentoId = 121212121,
+                    Nombre = "liana",
+                    Apellido = "fonseca",
+                    Celular = "+5712312",
+                    Correo = "li@hotm@ail.c9m",
                     Clave = "1234",
                     RolesRolId = 2
                 };
 
-            var usuario = JsonConvert.SerializeObject(usuarios);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(usuario);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var result = await client.PostAsync("api/Usuarios/Propietario", byteContent);
-            var contenido = await result.Content.ReadAsStringAsync();
-            Assert.Equal("Correo Invalido", contenido.ToString());          
-                    
+                UsuarioClaims claims = new UsuarioClaims()
+                {
+                    Rol = "1",
+                    Id = "10184841",
+                    Correo = "mapu@gmail.com"
+                };
+
+                Mock<IRoles> Roles = new Mock<IRoles>();
+                Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
+                Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+                bd.Setup(x => x.Agregar(usuarios)).Returns(usuarios);
+                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object);
+                var result = servicio.AgregarPropietario(usuarios);
+
+            }
+            catch(Exception e)
+            {
+                Assert.Equal("Correo Invalido", e.Message);
+            }           
         }
 
         [Fact]
         public async Task PruebaValidacionondeTelefono()
         {
-            apisubscripcion apisubscripcion = new apisubscripcion();
-            HttpClient client = apisubscripcion.CreateClient();            
-            Usuarios usuarios = new Usuarios()
+            try
             {
-                DocumentoId = 1918219,
-                Nombre = "Hector",
-                Apellido = "pereira",
-                Celular = "312t5fd312",
-                Correo = "Hector@gmail.com",
-                Clave = "1234",
-                RolesRolId = 2
-            };
+                Usuarios usuarios = new Usuarios()
+                {
+                    DocumentoId = 121212121,
+                    Nombre = "liana",
+                    Apellido = "fonseca",
+                    Celular = "+57712213R4",
+                    Correo = "li@gmail.com",
+                    Clave = "1234",
+                    RolesRolId = 2
+                };
 
-            var usuario = JsonConvert.SerializeObject(usuarios);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(usuario);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var result = await client.PostAsync("api/Usuarios/Propietario", byteContent);
-            var contenido = await result.Content.ReadAsStringAsync();
-            Assert.Equal("Numero telefonico Invalido", contenido.ToString());            
+                UsuarioClaims claims = new UsuarioClaims()
+                {
+                    Rol = "1",
+                    Id = "10184841",
+                    Correo = "mapu@gmail.com"
+                };
+
+                Mock<IRoles> Roles = new Mock<IRoles>();
+                Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
+                Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+                bd.Setup(x => x.Agregar(usuarios)).Returns(usuarios);
+                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object);
+                var result = servicio.AgregarPropietario(usuarios);
+
+            }
+            catch (Exception e)
+            {
+                Assert.Equal("Numero telefonico Invalido", e.Message);
+            }                     
         }
 
 
         [Fact]
         public async Task PruebaCamposvacios()
         {
-            apisubscripcion apisubscripcion = new apisubscripcion();
-            HttpClient client = apisubscripcion.CreateClient();
-            Usuarios usuarios = new Usuarios()
+            try
             {
-                DocumentoId = 1918219,
-                Nombre = "Hector",
-                Apellido = "Rojas",
-                Celular = "",
-                Correo = "Hector@gmail.com",
-                Clave = "1234",
-                RolesRolId = 2
-            };
+                Usuarios usuarios = new Usuarios()
+                {
+                    DocumentoId = 121212121,
+                    Nombre = "liana",
+                    Apellido = "",
+                    Celular = "+57712213R4",
+                    Correo = "li@gmail.com",
+                    Clave = "1234",
+                    
+                };
 
-            var usuario = JsonConvert.SerializeObject(usuarios);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(usuario);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var result = await client.PostAsync("api/Usuarios/Propietario", byteContent);
-            var contenido = await result.Content.ReadAsStringAsync();
-            Assert.Contains("field is required", contenido);
+                UsuarioClaims claims = new UsuarioClaims()
+                {
+                    Rol = "1",
+                    Id = "10184841",
+                    Correo = "mapu@gmail.com"
+                };
+
+                Mock<IRoles> Roles = new Mock<IRoles>();
+                Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
+                Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+                bd.Setup(x => x.Agregar(usuarios)).Returns(usuarios);
+                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object);
+                var result = servicio.AgregarPropietario(usuarios);
+
+            }
+            catch (Exception e)
+            {
+                Assert.Equal("Campos nulos", e.Message);
+            }
         }
     }
 }

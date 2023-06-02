@@ -1,4 +1,6 @@
 ﻿using Dominio.Interfaces;
+using Dominio.Modelos;
+using Dominio.Modelos.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Applicacion.Interfaces
 {
-    public interface IRestaruranteServicio<TentidadDTO>
+    public interface IRestaruranteServicio
     {
-        Task Agregar(TentidadDTO entidaDTO);
+        Task<Restaurantes> Agregar(RestaurantesDTO entidaDTO);
     }
 }
