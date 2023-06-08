@@ -18,7 +18,8 @@ namespace infrastructure.Repositorios
     {
         private Db_Context db_context;        
 
-        public UsuariosRepository(Db_Context db_context) { 
+        public UsuariosRepository(Db_Context db_context) 
+        { 
         
             this.db_context = db_context;
         }

@@ -49,12 +49,14 @@ namespace HU1Test
 
             Mock<IRoles> Roles = new Mock<IRoles>();
             Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
-            Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+            Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>> repoRestauranteEmpleado = new Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>>();
+            Roles.Setup(x => x.RolClaims()).Returns(claims);
             bd.Setup(x=> x.Agregar(usuarios)).Returns(usuarios);
-            UsuariosServicio servicio = new UsuariosServicio(bd.Object , Roles.Object);
+            UsuariosServicio servicio = new UsuariosServicio(bd.Object , Roles.Object, repoRestauranteEmpleado.Object);
             var result = servicio.AgregarPropietario(usuarios);
             Assert.NotNull(result);
-            Assert.Equal(usuarios.DocumentoId, result.DocumentoId);     
+            Assert.Equal(usuarios.DocumentoId, result.DocumentoId);
+            Assert.Equal("2", result.RolesRolId.ToString());
         }
 
         [Fact]
@@ -82,9 +84,10 @@ namespace HU1Test
 
                 Mock<IRoles> Roles = new Mock<IRoles>();
                 Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
-                Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+                Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>> repoRestauranteEmpleado = new Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>>();
+                Roles.Setup(x => x.RolClaims()).Returns(claims);
                 bd.Setup(x => x.Agregar(usuarios)).Returns(usuarios);
-                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object);
+                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object, repoRestauranteEmpleado.Object);
                 var result = servicio.AgregarPropietario(usuarios);
 
             }
@@ -119,9 +122,10 @@ namespace HU1Test
 
                 Mock<IRoles> Roles = new Mock<IRoles>();
                 Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
-                Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+                Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>> repoRestauranteEmpleado = new Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>>();
+                Roles.Setup(x => x.RolClaims()).Returns(claims);
                 bd.Setup(x => x.Agregar(usuarios)).Returns(usuarios);
-                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object);
+                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object, repoRestauranteEmpleado.Object);
                 var result = servicio.AgregarPropietario(usuarios);
 
             }
@@ -157,9 +161,10 @@ namespace HU1Test
 
                 Mock<IRoles> Roles = new Mock<IRoles>();
                 Mock<IRepositorioBase<Usuarios, int>> bd = new Mock<IRepositorioBase<Usuarios, int>>();
-                Roles.Setup(x => x.RolClaims()).Returns(claims.Rol);
+                Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>> repoRestauranteEmpleado = new Mock<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>>();
+                Roles.Setup(x => x.RolClaims()).Returns(claims);
                 bd.Setup(x => x.Agregar(usuarios)).Returns(usuarios);
-                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object);
+                UsuariosServicio servicio = new UsuariosServicio(bd.Object, Roles.Object, repoRestauranteEmpleado.Object);
                 var result = servicio.AgregarPropietario(usuarios);
 
             }

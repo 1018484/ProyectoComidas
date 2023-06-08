@@ -89,6 +89,17 @@ namespace Test
         {
             try
             {
+                PlatosDTO platoDTO = new PlatosDTO()
+                {
+                    NombrePlato = "Pollo sudado",
+                    Precio = 5000,
+                    Desacripcion = "Pollo sudado",
+                    URLImagen = "Pollosudado",
+                    Activo = true,
+                    Categoria = "Pollo",
+                    RestaurantesNIT_Id = 32235
+                };
+
                 Platos plato = new Platos()
                 {
                     NombrePlato = "Pollo sudado",
@@ -124,7 +135,7 @@ namespace Test
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
                 restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
                 PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-                var resultado = await servicio.Agregar(plato, 0);
+                var resultado = await servicio.Agregar(platoDTO, 0);
             }
             catch (Exception ex)
             {
@@ -137,6 +148,17 @@ namespace Test
         {
             try
             {
+                PlatosDTO platoDTO = new PlatosDTO()
+                {
+                    NombrePlato = "Pollo sudado",
+                    Precio = 5000,
+                    Desacripcion = "Pollo sudado",
+                    URLImagen = "Pollosudado",
+                    Activo = true,
+                    Categoria = "Pollo",
+                    RestaurantesNIT_Id = 32235
+                };
+
                 Platos plato = new Platos()
                 {
                     NombrePlato = "Pollo sudado",
@@ -172,7 +194,7 @@ namespace Test
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
                 restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
                 PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-                var resultado = await servicio.Agregar(plato, 0);
+                var resultado = await servicio.Agregar(platoDTO, 0);
             }
             catch (Exception ex)
             {

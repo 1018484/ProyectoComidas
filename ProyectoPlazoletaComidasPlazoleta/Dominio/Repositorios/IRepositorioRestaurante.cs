@@ -9,5 +9,6 @@ namespace Dominio.Repositorios
 {
     public interface IRepositorioRestaurante<Tentidad, TentidadID>:IAgregar<Tentidad>, IConfirmar, IConsultar<Tentidad, TentidadID>
     {
+        Tentidad ObtenerById(int id);
     }
 }

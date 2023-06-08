@@ -34,12 +34,17 @@ namespace infrastructure.Repositorios
 
         public List<Restaurantes> ObtenerTodos()
         {
-            return db_context.Restaurantes.ToList();
+            return db_context.Restaurantes.OrderBy(x=> x.Nombre).ToList();
         }
 
         public void Confirmar()
         {
             db_context.SaveChanges();
+        }
+
+        public Restaurantes ObtenerById(int id)
+        {
+            return db_context.Restaurantes.Where(u => u.DocumentoId == id).FirstOrDefault();
         }
     }
 }

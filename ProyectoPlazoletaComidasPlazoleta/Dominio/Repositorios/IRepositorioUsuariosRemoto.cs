@@ -9,6 +9,8 @@ namespace Dominio.Repositorios
 {
     public interface IRepositorioUsuariosRemoto<Tentidad, TentidadID>
     {
-        Task<Tentidad> UsuarioID(TentidadID id);        
+        Task<Tentidad> UsuarioID(TentidadID id);
+
+        Task<int> ObtenerEmpleado(int id);
     }
 }

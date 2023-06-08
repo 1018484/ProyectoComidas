@@ -1,5 +1,6 @@
 ﻿using Aplicacion.Interfaces;
 using Dominio.Modelos;
+using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Repositorio
 {
-    public class PlatosServicio : IPlatosServicio<Platos,int>
+    public class PlatosServicio : IPlatosServicio<PlatosDTO,int>
     {
         private readonly IRepositorioPlatos<Platos, string, int> repoPlatos;     
         private readonly IRepositorioRestaurante<Restaurantes, int> repoRestaurantes;
@@ -21,8 +22,19 @@ namespace Aplicacion.Repositorio
             this.repoRestaurantes = repoRestaurantes;
             this.repoRoles = roles;
         }
-        public async Task<Platos> Agregar(Platos entidad, int IDusuario)
+        public async Task<Platos> Agregar(PlatosDTO entidadDTO, int IDusuario)
         {
+            Platos entidad = new Platos()
+            {
+                NombrePlato = entidadDTO.NombrePlato,
+                Desacripcion = entidadDTO.Desacripcion,
+                Activo = entidadDTO.Activo,
+                URLImagen = entidadDTO.URLImagen,
+                Precio = entidadDTO.Precio,
+                Categoria = entidadDTO.Categoria,
+                RestaurantesNIT_Id = entidadDTO.RestaurantesNIT_Id
+            };
+
             var getClaims = await repoRoles.getToken();
             if (getClaims == null)
             {
@@ -57,8 +69,19 @@ namespace Aplicacion.Repositorio
             return result;
         }
 
-        public async Task<Platos> EditarAsync(Platos entidad, int IDusuario)
+        public async Task<Platos> EditarAsync(PlatosDTO entidadDTO, int IDusuario)
         {
+            Platos entidad = new Platos()
+            {
+                NombrePlato = entidadDTO.NombrePlato,
+                Desacripcion = entidadDTO.Desacripcion,
+                Activo = entidadDTO.Activo,
+                URLImagen = entidadDTO.URLImagen,
+                Precio = entidadDTO.Precio,
+                Categoria = entidadDTO.Categoria,
+                RestaurantesNIT_Id = entidadDTO.RestaurantesNIT_Id
+            };
+
             var getClaims = await repoRoles.getToken(); ;
             if (getClaims == null)
             {

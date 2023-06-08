@@ -40,7 +40,7 @@ namespace Infraestructure.Repositorios
 
         public Platos obtener(string id)
         {
-            return this._context.Platos.Where(p=> p.NombrePlato == id).FirstOrDefault();
+            return this._context.Platos.Include(c=>c.PedidosPlatos).Where(p=> p.NombrePlato == id).FirstOrDefault();
         }
 
         public List<Platos> ObtenerTodos()
@@ -50,7 +50,6 @@ namespace Infraestructure.Repositorios
 
         public Platos ConsultarPlatoPorRestaurante(string id, int nit)
         {
-
             return this._context.Platos.Where(p => p.NombrePlato == id && p.RestaurantesNIT_Id == nit).FirstOrDefault();
         }
     }

@@ -70,3 +70,5 @@ C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasP
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\obj\Debug\net6.0\ProyectoPlazoletaComidasPlazoleta.pdb
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\obj\Debug\net6.0\ProyectoPlazoletaComidasPlazoleta.genruntimeconfig.cache
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\obj\Debug\net6.0\ref\ProyectoPlazoletaComidasPlazoleta.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\Humanizer.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll

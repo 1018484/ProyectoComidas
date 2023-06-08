@@ -16,52 +16,64 @@ using Infraestructure.Repositorios;
 
 namespace PlazoletaComidas.Controllers
 {
+    /// <summary>
+    /// Esta es el controlador encargado de gestionar la insercion y consulta de Usuarios    
+    /// <list type="bullet">
+    /// <item>
+    /// <term>ListarUsuarios</term>
+    /// <description>Listado de usuarios</description>
+    /// </item>
+    /// <item>
+    /// <term>ListarUsuariosPorID</term>
+    /// <description>Devuelve un la consulta de un usuario por ID</description>
+    /// </item>
+    /// <item>
+    /// <term>ObtenerEmpleado</term>
+    /// <description>Devuelve el restaurante donde labora el empleado</description>
+    /// </item>
+    /// </list>
+    /// </summary>
+    /// <remarks>
+    /// Esta clase sirve solo para los alumnos pero comparte el metodo
+    /// MostrarNotas con los profesores.
+    /// </remarks>
     [Route("api/[controller]")]
     [ApiController]    
     public class UsuariosController : ControllerBase    
     {
-        //private readonly IUsuarioServicio _usuarioServicio;
+        private readonly IUsuarioServicio _usuarioServicio;        
 
-        //private readonly IRepositorioBase<Usuarios, int> _repositorioBase;
-
-        //private UsuariosController(IUsuarioServicio usuarioServicio, IRepositorioBase<Usuarios, int> repositorioBase)
-        //{
-        //    _usuarioServicio = usuarioServicio;
-        //    _repositorioBase = repositorioBase;
-        //}
-        UsuariosServicio UsuariosServicios()
+        public UsuariosController(IUsuarioServicio usuarioServicio)
         {
-            Db_Context db = new Db_Context();
-            UsuariosRepository usuariosRepository = new UsuariosRepository(db);
-            RolesRepositorio rolesRepositorio = new RolesRepositorio(HttpContext);
-            UsuariosServicio usuariosServicio = new UsuariosServicio(usuariosRepository, rolesRepositorio);
-            return usuariosServicio;
-        }
+            _usuarioServicio = usuarioServicio;            
+        }       
 
         [HttpGet]        
         public ActionResult<List<Usuarios>> ListarUsuarios()
         {
-            var servicio = UsuariosServicios();            
-            return servicio.ObtenerTodos();
+            return _usuarioServicio.ObtenerTodos();            
         }
         
         [HttpGet("{id}")]
         public ActionResult<Usuarios> ListarUsuariosPorID(int id)
-        {
-            var servicio = UsuariosServicios();
-            return servicio.obtener(id);
+        {            
+            return _usuarioServicio.obtener(id);
         }
 
-        
+        [HttpGet("ObtenerRestauranteNIT/{id}")]
+        public ActionResult<int> ObtenerRestauranteNIT(int id)
+        {
+            return _usuarioServicio.ObtenerRestauranteNIT(id);
+        }
+
+
         [HttpPost]
         [Route("Propietario")]        
         public IActionResult CrearUsuarioPropietario([FromBody] Usuarios usuario)
         {
             try
-            {               
-                usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
-                var servicio = UsuariosServicios();
-                servicio.AgregarPropietario(usuario);
+            {                            
+                _usuarioServicio.AgregarPropietario(usuario);
                 return Ok("Se ingreso correctamente");
             } 
             catch (Exception ex)
@@ -72,13 +84,11 @@ namespace PlazoletaComidas.Controllers
         
         [HttpPost]
         [Route("Empleados")]        
-        public IActionResult CrearUsuarioEmpleado([FromBody] Usuarios usuario)
+        public async Task<IActionResult> CrearUsuarioEmpleadoAsync([FromBody] Usuarios usuario)
         {
             try
-            {              
-                usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
-                var servicio = UsuariosServicios();
-                servicio.AgregarEmpleado(usuario);
+            {                                         
+                await _usuarioServicio.AgregarEmpleado(usuario);
                 return Ok("Se ingreso correctamente");
 
             }
@@ -93,10 +103,8 @@ namespace PlazoletaComidas.Controllers
         public IActionResult CrearUsuarioCliente([FromBody] Usuarios usuario)
         {
             try
-            {
-                usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
-                var servicio = UsuariosServicios();
-                servicio.AgregarUsuario(usuario);
+            {                            
+                _usuarioServicio.AgregarUsuario(usuario);
                 return Ok("Se ingreso correctamente");
             }
             catch(Exception e)

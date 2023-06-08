@@ -31,6 +31,17 @@ namespace HU2
         [Fact]
         public async Task CrearPlatos()
         {
+            PlatosDTO platoDTO = new PlatosDTO()
+            {
+                NombrePlato = "Pollo sudado",
+                Precio = 5000,
+                Desacripcion = "Pollo sudado",
+                URLImagen = "Pollosudado",
+                Activo = true,
+                Categoria = "Pollo",
+                RestaurantesNIT_Id = 32235
+            };
+
             Platos plato = new Platos()
             {
                 NombrePlato = "Pollo sudado",
@@ -66,7 +77,7 @@ namespace HU2
             Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
             restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
             PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);           
-            var resultado = await servicio.Agregar(plato, 0);
+            var resultado = await servicio.Agregar(platoDTO, 0);
             Assert.Equal(plato.NombrePlato, resultado.NombrePlato);
             Assert.Equal(plato.Activo.ToString(), resultado.Activo.ToString());
         }
@@ -76,6 +87,17 @@ namespace HU2
         {
             try
             {
+                PlatosDTO platoDTO = new PlatosDTO()
+                {
+                    NombrePlato = "Pollo sudado",
+                    Precio = 5000,
+                    Desacripcion = "Pollo sudado",
+                    URLImagen = "Pollosudado",
+                    Activo = true,
+                    Categoria = "Pollo",
+                    RestaurantesNIT_Id = 32235
+                };
+
                 Platos plato = new Platos()
                 {
                     NombrePlato = "Pollo sudado",
@@ -111,7 +133,7 @@ namespace HU2
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
                 restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
                 PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-                var resultado = await servicio.Agregar(plato, 0);
+                var resultado = await servicio.Agregar(platoDTO, 0);
                 Assert.Equal(plato.NombrePlato, resultado.NombrePlato);
 
             }catch(Exception e)
@@ -125,6 +147,17 @@ namespace HU2
         {
             try
             {
+                PlatosDTO platoDTO = new PlatosDTO()
+                {
+                    NombrePlato = "Pollo sudado",
+                    Precio = 5000,
+                    Desacripcion = "Pollo sudado",
+                    URLImagen = "Pollosudado",
+                    Activo = true,
+                    Categoria = "Pollo",
+                    RestaurantesNIT_Id = 32235
+                };
+
                 Platos plato = new Platos()
                 {
                     NombrePlato = "Pollo sudado",
@@ -161,7 +194,7 @@ namespace HU2
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
                 restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
                 PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-                var resultado = await servicio.Agregar(plato, 0);
+                var resultado = await servicio.Agregar(platoDTO, 0);
                 Assert.Equal(plato.NombrePlato, resultado.NombrePlato);
 
             }
@@ -173,7 +206,17 @@ namespace HU2
 
         [Fact]
         public async Task EditarPlato()
-        {            
+        {
+            PlatosDTO platoDTO = new PlatosDTO()
+            {
+                NombrePlato = "Pollo sudado",
+                Precio = 5000,
+                Desacripcion = "Pollo sudado",
+
+                Activo = false,
+                RestaurantesNIT_Id = 32235
+            };
+
             Platos plato = new Platos()
             {
                 NombrePlato = "Pollo sudado",
@@ -232,7 +275,7 @@ namespace HU2
             Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
             restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);            
             PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-            var resultado = await servicio.EditarAsync(plato, 0);
+            var resultado = await servicio.EditarAsync(platoDTO, 0);
             Assert.Equal(plato.NombrePlato, resultado.NombrePlato);
             Assert.NotEqual(original.Activo, resultado.Activo);            
         }

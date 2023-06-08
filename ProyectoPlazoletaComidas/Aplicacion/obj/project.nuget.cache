@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "xax01iKgiGZk4hCUUd/DAku54z7D2sdUAEvju+OPSajvJj+USgghYMwkG44K0LMdTDmuAPVKpY0/+QTLLBy30w==",
+  "dgSpecHash": "fM1rDkDRTy48k8qxQ8LNdB8YTgvtByR+AF3VfgJghcJ2eFZDjWG67AhrGg/loinD4wjKNMKyn42NQpkoBO59pg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidas\\Aplicacion\\Aplicacion.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

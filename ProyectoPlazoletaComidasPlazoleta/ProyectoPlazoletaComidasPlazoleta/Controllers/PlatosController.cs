@@ -10,6 +10,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Dominio.Modelos.DTO;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Dominio.Repositorios;
+using Aplicacion.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,32 +21,22 @@ namespace PlazoletaComidas.Controllers
     [ApiController]
     public class PlatosController : ControllerBase
     {
-        public readonly string secretkey;
-        public PlatosController(IConfiguration config) 
+        private readonly string secretkey;
+
+        private readonly IPlatosServicio<PlatosDTO, int> _platosServicio;
+
+        public PlatosController(IConfiguration config, IPlatosServicio<PlatosDTO, int> platosServicio) 
         {
-            secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();
-        }
-       
-        PlatosServicio PlatoServicio()
-        {
-            Db_Context db = new Db_Context();
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:7191");
-            httpClient.DefaultRequestHeaders.Clear();
-            PlatosRepositotio platosRepositotio = new PlatosRepositotio(db);
-            RestauranteRepositorio restauranteRepositorio = new RestauranteRepositorio(db);
-            RolesRepositorio rolesRepositorio = new RolesRepositorio(HttpContext, httpClient);
-            PlatosServicio servicio = new PlatosServicio(platosRepositotio, restauranteRepositorio, rolesRepositorio);            
-            return servicio;
-        }
+            secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();            
+            _platosServicio = platosServicio;
+        } 
 
         [HttpPost]
-        public async Task<IActionResult> CrearPlatoAsync([FromBody] Platos plato)
+        public async Task<IActionResult> CrearPlatoAsync([FromBody] PlatosDTO plato)
         {
             try
-            {              
-                var servicio = PlatoServicio();
-                await servicio.Agregar(plato, 0);
+            {                     
+                await _platosServicio.Agregar(plato, 0);
                 return Ok("El plato se ingreso correctamente");
 
             }
@@ -55,12 +47,11 @@ namespace PlazoletaComidas.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> EditarPlatoAsync([FromBody] Platos plato)
+        public async Task<IActionResult> EditarPlatoAsync([FromBody] PlatosDTO plato)
         {
             try
-            {              
-                var servicio = PlatoServicio();
-                await servicio.EditarAsync(plato, 0);
+            {                   
+                await _platosServicio.EditarAsync(plato, 0);
                 return Ok("El plato se actualizo correctamente");
 
             } catch(Exception e)

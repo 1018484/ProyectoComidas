@@ -31,6 +31,8 @@ namespace Dominio.Modelos
         
 
         public List<Platos> platos { get; set; }       
+
+        public List<Pedidos> pedidos { get; set; }
         
 
     }

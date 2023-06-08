@@ -1,5 +1,6 @@
 ﻿using Dominio.Interfaces;
 using Dominio.Modelos;
+using Dominio.Modelos.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Aplicacion.Interfaces
 {
     public interface IPlatosServicio<Tentidad, IDusuario>
     {
-        Task<Tentidad> Agregar(Tentidad entidad, IDusuario IDusuario);
+        Task<Platos> Agregar(PlatosDTO entidadDTO, int  IDusuario);
 
-        Task<Tentidad> EditarAsync(Tentidad entidad, IDusuario IDusuario);
+        Task<Platos> EditarAsync(PlatosDTO entidadDTO, int IDusuario);
 
 
     }

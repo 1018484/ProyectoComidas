@@ -90,5 +90,10 @@ namespace Applicacion.Repositorio
             this.repoRestaurantes.Confirmar();
             return result;
         }
+
+        public Restaurantes ObtenerRestauranteNIt_ID(int IdPropietario)
+        {
+            return repoRestaurantes.ObtenerById(IdPropietario);            
+        }
     }
 }

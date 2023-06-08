@@ -2108,6 +2108,7 @@
       "xunit.runner.visualstudio/2.4.5": {},
       "Aplicacion/1.0.0": {
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "Dominio": "1.0.0"
         },
         "runtime": {
@@ -2144,7 +2145,6 @@
       "Users/1.0.0": {
         "dependencies": {
           "Aplicacion": "1.0.0",
-          "BCrypt.Net-Next": "4.0.3",
           "Dominio": "1.0.0",
           "Infraestructure": "1.0.0",
           "Newtonsoft.Json": "13.0.1",

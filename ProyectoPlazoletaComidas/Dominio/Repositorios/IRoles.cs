@@ -1,4 +1,5 @@
-﻿using Dominio.Modelos.DTO;
+﻿using Dominio.Modelos;
+using Dominio.Modelos.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,6 @@ namespace Dominio.Repositorios
 {
     public interface IRoles
     {
-        string RolClaims();
-
-        Task<UsuarioClaims> getToken();
-
-
+        UsuarioClaims RolClaims();
     }
 }

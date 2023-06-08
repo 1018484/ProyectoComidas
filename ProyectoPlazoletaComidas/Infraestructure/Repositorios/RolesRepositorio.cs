@@ -12,68 +12,35 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Dominio.Modelos;
+using System.Security.Principal;
 
 namespace Infraestructure.Repositorios
 {
     public class RolesRepositorio : IRoles
     {
-        private readonly HttpContext httpContext;
+        private readonly IHttpContextAccessor httpContext;
 
-        public RolesRepositorio(HttpContext httpContext)
+        public RolesRepositorio(IHttpContextAccessor httpContext)
         {
             this.httpContext = httpContext;
         }
-
-        public async Task<UsuarioClaims> getToken()
+        public UsuarioClaims RolClaims()
         {
-            var Token = await httpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
-            if (string.IsNullOrEmpty(Token))
-            {
-                return null;
-            }
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("J4im3OsorioTok3n");
-            try
-            {
-                tokenHandler.ValidateToken(Token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                UsuarioClaims claims = new UsuarioClaims()
-                {
-                    Rol = jwtToken.Claims.First(x => x.Type == "Rol").Value,
-                    Id = jwtToken.Claims.First(x => x.Type == "ID").Value,
-                    Correo = jwtToken.Claims.First(x => x.Type == "Correo").Value
-                };
-
-                return claims;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public string RolClaims()
-        {
-            var identity = httpContext.User.Identity as ClaimsIdentity;
+            var identity = httpContext.HttpContext.User.Identity as ClaimsIdentity;
+            UsuarioClaims claims = new UsuarioClaims();
             string rol = "0";
             try
             {
                 if (identity.Claims.Count() == 0)
                 {
-                    return rol;
+                    return null;
                 }
 
-                rol = identity.Claims.FirstOrDefault(x => x.Type == "Rol").Value.ToString();
-                return rol;
+                claims.Rol= identity.Claims.FirstOrDefault(x => x.Type == "Rol").Value.ToString();
+                claims.Correo = identity.Claims.FirstOrDefault(x => x.Type == "Correo").Value.ToString();
+                claims.Id = identity.Claims.FirstOrDefault(x => x.Type == "ID").Value.ToString();
+                return claims;
             }
             catch (Exception ex)
             {

@@ -19,6 +19,7 @@ using Dominio.Modelos.DTO;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Dominio.Repositorios;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,40 +30,38 @@ namespace Plazoleta.Controllers
     [ApiController]
     public class RestaurantesController : ControllerBase
     {
-        public readonly string secretkey;
-        public RestaurantesController(IConfiguration config)
+        private readonly string secretkey;        
+
+        private readonly IRestaruranteServicio _restaruranteServicio;
+
+        public RestaurantesController(IConfiguration config, IRestaruranteServicio restaruranteServicio)
         {
-            secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();
-        }
-        RestauranteServicio restauranteServicio()
-        {
-            Db_Context db = new Db_Context();
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:7191");
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            RestauranteRepositorio restauranteRepositorio = new RestauranteRepositorio(db);
-            UsuarioRepositorioRemoto RepoUsuarioRemo = new UsuarioRepositorioRemoto(httpClient);
-            RolesRepositorio rolesRepositorio = new RolesRepositorio(HttpContext, httpClient);
-            RestauranteServicio serciciorestaurante = new RestauranteServicio(restauranteRepositorio, RepoUsuarioRemo, rolesRepositorio);
-            return serciciorestaurante;
-        }
+            secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();            
+            _restaruranteServicio = restaruranteServicio;
+        }        
 
         [HttpPost]
         public async Task<IActionResult> CrearRestauranteAsync([FromBody] RestaurantesDTO restaurante)
         {
             try
-            {              
-
-                var servicio = restauranteServicio();
-                await servicio.Agregar(restaurante);
+            {                         
+                await _restaruranteServicio.Agregar(restaurante);
                 return Ok("Restaurante agregado");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
 
-        }       
+        [HttpGet("{id}")]
+
+        public ActionResult<int> ObtenerRestauranteNIT(int id)
+        {
+            var Restaurante =_restaruranteServicio.ObtenerRestauranteNIt_ID(id);
+            return Restaurante.NIT_Id;
+        }
+
+
     }
 }

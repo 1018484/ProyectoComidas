@@ -36,5 +36,7 @@ namespace Dominio.Modelos
         [ForeignKey("Restaurantes")]
         public int RestaurantesNIT_Id { get; set; }
 
+        public List<PedidosPlatos> PedidosPlatos { get; set; }
+
     }
 }

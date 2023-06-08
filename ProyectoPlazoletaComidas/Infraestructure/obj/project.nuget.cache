@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dyK1KB5rL1szHbYZ/8A/PcDYhuDPfL7UfcxmXlJLNj+5NLwJE0r25CcL8SndkeOP5BSyVtpYtYZzwpXpdMUn0g==",
+  "dgSpecHash": "/qXeg5R+h1J3uDjcxWDrQHZnF7x1Wn/7mUueLjYI/u82b0RJDwZt0mF8Wsy93BW3Y5O2+ZzNttEFwXff7/JrLg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidas\\Infraestructure\\Infraestructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",

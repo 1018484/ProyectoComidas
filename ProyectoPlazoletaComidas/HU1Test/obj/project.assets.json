@@ -3084,6 +3084,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
           "Dominio": "1.0.0"
         },
         "compile": {
@@ -3126,7 +3127,6 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Aplicacion": "1.0.0",
-          "BCrypt.Net-Next": "4.0.3",
           "Dominio": "1.0.0",
           "Infraestructure": "1.0.0",
           "Newtonsoft.Json": "6.0.3",

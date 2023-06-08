@@ -13,7 +13,7 @@ namespace Dominio.Modelos
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         [Required]
-        public int? DocumentoId { get; set; }
+        public int DocumentoId { get; set; }
 
         [Required]
         public string Nombre { get; set; }
@@ -36,12 +36,6 @@ namespace Dominio.Modelos
         [Required]
         [ForeignKey("Roles")]
         public int RolesRolId { get; set; }
-
-        //List<RestauranteUsuario> RestauranteUsuario { get; set; }
-
-        ////public Roles Roles { get; set; }
-
-        ////public ICollection<Restaurantes> Restaurantes { get; set;}
 
     }
 }

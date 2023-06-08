@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "3uaeVUxZ1XR/oJasrZlohvmtRhHuZg+IX5QHpOaREE60bmdajShmffgCMWE8uIWKSuCCbapnEhbrSAfwp+MUxQ==",
+  "dgSpecHash": "KR4xFQFsug42w8/sv8XkZl99oP2nbLDSENbfnY+OpR6jIK/B7HqlisztcdFR1x9t/8xI5RY4rm4EQ8VH017cgQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidasPlazoleta\\Infraestructure\\Infraestructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
@@ -11,8 +12,10 @@
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.0\\microsoft.entityframeworkcore.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.0\\microsoft.entityframeworkcore.analyzers.6.0.0.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.0\\microsoft.entityframeworkcore.design.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.0\\microsoft.entityframeworkcore.relational.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.0\\microsoft.entityframeworkcore.sqlserver.6.0.0.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.0\\microsoft.entityframeworkcore.tools.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.0\\microsoft.extensions.caching.memory.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

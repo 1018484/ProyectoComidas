@@ -10,21 +10,51 @@ using System.Text.Json;
 namespace Infraestructure.Repositorios
 {
     public class UsuarioRepositorioRemoto : IRepositorioUsuariosRemoto<Usuarios, int>
-    {       
+    {
 
-        private HttpClient _httpClient;        
+        private readonly IHttpClientFactory _httpClient;
 
-        public UsuarioRepositorioRemoto(HttpClient httpClient)
+        public UsuarioRepositorioRemoto(IHttpClientFactory httpClient)
         {            
             _httpClient = httpClient;
-        }      
+        }
+
+        public async Task<int> ObtenerEmpleado(int id)
+        {
+            try
+            {
+                var cliente = _httpClient.CreateClient("Usuarios");
+                var response = await cliente.GetAsync($"/api/Usuarios/ObtenerRestauranteNIT/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var conteenido = await response.Content.ReadAsStringAsync();
+                    if (string.IsNullOrEmpty(conteenido))
+                    {
+                        return 0;
+                    }
+                    var options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
+
+                    var resultado = JsonSerializer.Deserialize<int>(conteenido, options);
+                    return resultado;
+                }
+
+                return 0;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public async Task<Usuarios> UsuarioID(int id)
         {
             try
-            {               
-                //string token = await Autenticacion(dto);
-                //_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);                
-                var response = await _httpClient.GetAsync($"/api/Usuarios/{id}");
+            {                               
+                var cliente = _httpClient.CreateClient("Usuarios");
+                var response = await cliente.GetAsync($"/api/Usuarios/{id}");
                 if (response.IsSuccessStatusCode)
                 {
                     var conteenido = await response.Content.ReadAsStringAsync();
@@ -48,15 +78,6 @@ namespace Infraestructure.Repositorios
             {
                 throw new Exception(e.Message);
             }
-        }
-
-        //private async Task<string> Autenticacion(UsuarioDTO dto)
-        //{
-        //    var respuesta = await _httpClient.PostAsJsonAsync(@"/api/Autenticacion/InicioSesion", dto);
-        //    return await respuesta.Content.ReadFromJsonAsync<string>();
-
-        //}      
-
-
+        }       
     }
 }

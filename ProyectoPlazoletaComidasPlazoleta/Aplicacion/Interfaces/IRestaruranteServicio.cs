@@ -12,5 +12,9 @@ namespace Applicacion.Interfaces
     public interface IRestaruranteServicio
     {
         Task<Restaurantes> Agregar(RestaurantesDTO entidaDTO);
+
+        Restaurantes ObtenerRestauranteNIt_ID(int IdPropietario);
+        
+        
     }
 }

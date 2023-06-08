@@ -19,12 +19,12 @@ using System.Text.Json;
 namespace Infraestructure.Repositorios
 {
     public class RolesRepositorio : IRoles
-    {
-        private readonly HttpContext httpContext;
+    {       
+        private readonly IHttpContextAccessor httpContext;
 
-        private readonly HttpClient _cliente;
+        private readonly IHttpClientFactory _cliente;
 
-        public RolesRepositorio(HttpContext httpContext, HttpClient cliente)
+        public RolesRepositorio(IHttpContextAccessor httpContext, IHttpClientFactory cliente)
         {
             this.httpContext = httpContext;
             this._cliente = cliente;    
@@ -32,13 +32,14 @@ namespace Infraestructure.Repositorios
 
         public async Task<UsuarioClaims> getToken()
         {
-            var Token = await httpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
+            var Token = await httpContext.HttpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
             if (string.IsNullOrEmpty(Token))
             {
                 return null;
             }
 
-            var result = await _cliente.GetAsync($"/api/Autenticacion/{Token}");
+            var httpClient =  _cliente.CreateClient("Usuarios");
+            var result = await httpClient.GetAsync($"/api/Autenticacion/{Token}");
             if (result.IsSuccessStatusCode)
             {
                 var contenido = await result.Content.ReadAsStringAsync();
@@ -60,7 +61,7 @@ namespace Infraestructure.Repositorios
 
         public string RolClaims()
         {
-            var identity = httpContext.User.Identity as ClaimsIdentity;
+            var identity = httpContext.HttpContext.User.Identity as ClaimsIdentity;
             string rol = "0";
             try
             {
