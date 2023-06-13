@@ -1,5 +1,5 @@
-﻿using Dominio.Modelos;
-using Dominio.Modelos.DTO;
+﻿using Dominio.DTO;
+using Dominio.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Aplicacion.Interfaces
 {
     public interface IEmployeeService
     {
-        Task<List<Pedidos>> ListOrders(PedidsoFiltroDTO filtro);
+        Task<List<PaginacionPedidos>> ListOrders(PedidsoFiltroDTO filtro);
 
         public void AssignOrder(List<Guid> orders);
     }

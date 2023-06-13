@@ -1,6 +1,6 @@
-﻿using Dominio.Interfaces;
+﻿using Dominio.DTO;
+using Dominio.Interfaces;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

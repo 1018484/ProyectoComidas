@@ -15,7 +15,6 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
-using Dominio.Modelos.DTO;
 using Aplicacion.Repositorio;
 using Moq;
 using Dominio.Repositorios;
@@ -23,6 +22,7 @@ using System;
 using System.Runtime.InteropServices.ObjectiveC;
 using AutoMapper;
 using Dominio.Mapp;
+using Dominio.DTO;
 
 namespace Test
 {
@@ -88,7 +88,7 @@ namespace Test
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
                 repoRestaurant.Setup(x => x.GetByID(dish.RestaurantesNIT_Id)).Returns(rest);
                 DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper);
-                var resultado = await servicio.AddDish(DishDTO, 0);
+                var resultado = await servicio.AddDish(DishDTO);
 
             }
             catch (Exception ex)
@@ -117,7 +117,7 @@ namespace Test
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
                 repoRestaurant.Setup(x => x.GetByID(dish.RestaurantesNIT_Id)).Returns(rest);
                 DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper);
-                var resultado = await servicio.AddDish(DishDTO, 0);
+                var resultado = await servicio.AddDish(DishDTO);
 
             }
             catch (Exception ex)

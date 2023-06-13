@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio.Modelos.DTO
+namespace Dominio.DTO
 {
     public class PaginacionRestaurantesDTO
     {
@@ -14,7 +14,7 @@ namespace Dominio.Modelos.DTO
 
         public int NumeroDePagina { get; set; }
 
-        public List<RestaurantesfiltradosDTO> Filtrados { get; set;}
-        
+        public List<RestaurantesfiltradosDTO> Filtrados { get; set; }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Dominio.DTO;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,12 @@ namespace Dominio.Mapp
        public Mapprestaurant() 
        {
             CreateMap<RestaurantesDTO, Restaurantes>();
-            CreateMap<PlatosDTO, Platos>();
+            CreateMap<PlatosDTO, Platos>(); 
+            CreateMap<Pedidos, PedidosDTO>();
+            CreateMap<Platos, PlatosDTO>();   
+            //CreateMap<List<PedidosPlatos> , List<PedidosPlatosDTO>>();
+            
+
        }
     }
 }

@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
-using Dominio.Modelos.DTO;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Dominio.Repositorios;
 using Aplicacion.Interfaces;
+using Dominio.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

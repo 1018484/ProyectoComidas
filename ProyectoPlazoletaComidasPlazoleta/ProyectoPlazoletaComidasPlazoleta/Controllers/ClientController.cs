@@ -1,7 +1,7 @@
 ﻿using Aplicacion.Interfaces;
 using Aplicacion.Servicios;
+using Dominio.DTO;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using Infraestructure.Repositorios;
 using infrastructure.Context;
@@ -43,7 +43,7 @@ namespace ProyectoPlazoletaComidasPlazoleta.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PedidosAsync([FromBody] PedidosDTO pedido)
+        public async Task<IActionResult> PedidosAsync([FromBody] SendOrder pedido)
         {            
             await _clientService.AddOrders(pedido);
             return Ok();

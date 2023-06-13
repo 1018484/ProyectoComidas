@@ -1,4 +1,4 @@
-﻿public enum EnumEstados
+﻿public enum EnumStatus
 {
     SinEstado,
     Pendiente,

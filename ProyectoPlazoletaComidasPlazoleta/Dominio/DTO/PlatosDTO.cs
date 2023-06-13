@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio.Modelos.DTO
+namespace Dominio.DTO
 {
     public class PlatosDTO
     {
         public int Id { get; set; }
-     
+
         public string NombrePlato { get; set; }
-        
+
         public int Precio { get; set; }
 
         public string Desacripcion { get; set; }

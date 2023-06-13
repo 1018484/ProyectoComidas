@@ -1,5 +1,5 @@
 ﻿using Dominio.Modelos;
-using Dominio.Modelos.DTO;
+using Dominio.DTO;
 using Dominio.Repositorios;
 using System.Net.Http;
 using System.Net.Http.Headers;

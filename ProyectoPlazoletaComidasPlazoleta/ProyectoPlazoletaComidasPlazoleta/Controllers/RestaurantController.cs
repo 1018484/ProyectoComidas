@@ -1,5 +1,5 @@
 ﻿using Applicacion.Interfaces;
-using Dominio.Modelos.DTO;
+using Dominio.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 

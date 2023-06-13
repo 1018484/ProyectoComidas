@@ -4,7 +4,7 @@ using Aplicacion.Servicios;
 using Applicacion.Interfaces;
 using Applicacion.Repositorio;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
+using Dominio.DTO;
 using Dominio.Repositorios;
 using Infraestructure.Repositorios;
 using infrastructure.Context;

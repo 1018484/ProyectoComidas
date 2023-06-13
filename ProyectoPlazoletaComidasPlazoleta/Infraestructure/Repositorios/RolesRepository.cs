@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Net.Http;
 using Dominio.Modelos;
 using System.Text.Json;
+using Dominio.DTO;
 
 namespace Infraestructure.Repositorios
 {

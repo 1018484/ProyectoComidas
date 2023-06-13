@@ -1,6 +1,7 @@
 ﻿using Dominio.Modelos;
 using Dominio.Repositorios;
 using infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,11 @@ namespace Infraestructure.Repositorios
         public void Confirm()
         {
            db_context.SaveChanges();
+        }
+
+        public List<PedidosPlatos> GetOrders(int id, int status) 
+        {
+            return db_context.PedidosPlatos.Include(p => p.Pedidos).Where(c => c.Pedidos.RestaurantesNIT_Id == id  && c.Pedidos.Estado == status).Include(p => p.Platos).ToList();            
         }
     }
 }

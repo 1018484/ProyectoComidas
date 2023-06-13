@@ -1,6 +1,6 @@
 ﻿using Aplicacion.Interfaces;
+using Dominio.DTO;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace Aplicacion.Servicios
             this.getClaims = this.repoRoles.getToken();
         }
 
-        public async Task AddOrders(PedidosDTO entityDTO)
+        public async Task AddOrders(SendOrder entityDTO)
         {            
             if (Enum.Parse<EnumRoles>(getClaims.Result.Rol)  != EnumRoles.Cliente)
             {
@@ -53,14 +53,14 @@ namespace Aplicacion.Servicios
             order.Pedido_Id = Guid.NewGuid();
             order.Cliente_Id = getClaims.Result.Id;
             order.Fecha = DateTime.Now;            
-            order.Estado = (int)EnumEstados.Pendiente;
+            order.Estado = (int)EnumStatus.Pendiente;
             order.RestaurantesNIT_Id = entityDTO.RestauranteNIT;
             this.repoOrders.Add(order);
             this.repoOrders.Confirm();
             AgendarPlatos(order.Pedido_Id, entityDTO.platos);
         }
 
-        public List<PaginacionPlatosDTO> ListDishes(int paginacion)
+        public List<PaginacionPlatosDTO> ListDishes(int pag)
         {
             int page = 0;
             List<PaginacionPlatosDTO> result = new List<PaginacionPlatosDTO>();            
@@ -80,8 +80,8 @@ namespace Aplicacion.Servicios
                     IEnumerable<Platos> platos = groups.SelectMany(group => group);
                     List<Platos> listDish = new List<Platos>();
                     listDish = platos.ToList();
-                    page = (int)listDish.Count() / paginacion;
-                    if (listDish.Count() % paginacion != 0)
+                    page = (int)listDish.Count() / pag;
+                    if (listDish.Count() % pag != 0)
                     {
                         page += 1;
                     }
@@ -89,11 +89,11 @@ namespace Aplicacion.Servicios
                     for (int i = 1; i <= page; i++)
                     {
                         PaginacionPlatos pagiDishes = new PaginacionPlatos();                        
-                        pagiDishes.DatosPorPagina = paginacion;
+                        pagiDishes.DatosPorPagina = pag;
                         pagiDishes.CantidadDePaginas = page;
                         pagiDishes.NumeroDePagina = i;
                         pagiDishes.Filtrados = new List<Platos>();
-                        for (int a = 1; a <= paginacion; a++)
+                        for (int a = 1; a <= pag; a++)
                         {
                             if (listDish.Count == 0)
                             {
@@ -116,55 +116,55 @@ namespace Aplicacion.Servicios
             return result;               
         }
 
-        public List<PaginacionRestaurantesDTO> ListRestaurants(int paginacion)
+        public List<PaginacionRestaurantesDTO> ListRestaurants(int pag)
         {
-            int paginas = 0;
+            int page = 0;
             List<PaginacionRestaurantesDTO> paginacionlist = new List<PaginacionRestaurantesDTO> ();
-            var restaurantes = repoRestaurant.GetAll().Select(x=> new RestaurantesfiltradosDTO()
+            var restaurant = repoRestaurant.GetAll().Select(x=> new RestaurantesfiltradosDTO()
             {
                 Nombre = x.Nombre,
                 URLLogo = x.URLLogo
             }).ToList();
 
-            paginas = (int)restaurantes.Count() / paginacion;
-            if (restaurantes.Count() % paginacion != 0 )
+            page = (int)restaurant.Count() / pag;
+            if (restaurant.Count() % pag != 0 )
             {
-                paginas += 1;
+                page += 1;
             }
 
-            for (int i =1; i<= paginas; i++)
+            for (int i =1; i<= page; i++)
             {
-                PaginacionRestaurantesDTO pretaurantePorPagina = new PaginacionRestaurantesDTO();
-                pretaurantePorPagina.DatosPorPagina = paginacion;
-                pretaurantePorPagina.CantidadDePaginas = paginas;
-                pretaurantePorPagina.NumeroDePagina = i;
-                pretaurantePorPagina.Filtrados = new List<RestaurantesfiltradosDTO>();
-                for (int a = 1; a<= paginacion; a++)
+                PaginacionRestaurantesDTO pagByPagination = new PaginacionRestaurantesDTO();
+                pagByPagination.DatosPorPagina = pag;
+                pagByPagination.CantidadDePaginas = page;
+                pagByPagination.NumeroDePagina = i;
+                pagByPagination.Filtrados = new List<RestaurantesfiltradosDTO>();
+                for (int a = 1; a<= pag; a++)
                 {
-                    if (restaurantes.Count == 0)
+                    if (restaurant.Count == 0)
                     {
                         break;
                     }
 
-                    pretaurantePorPagina.Filtrados.Add(restaurantes[0]);
-                    restaurantes.Remove(restaurantes[0]);
+                    pagByPagination.Filtrados.Add(restaurant[0]);
+                    restaurant.Remove(restaurant[0]);
                 }
 
-                paginacionlist.Add(pretaurantePorPagina);
+                paginacionlist.Add(pagByPagination);
             }
 
             return paginacionlist;
         }
         
-        public void AgendarPlatos(Guid id, List<PlatosPedidosDTO> platos)
+        public void AgendarPlatos(Guid id, List<PlatosPedidosDTO> dishes)
         {
-            foreach (var plato in platos)
+            foreach (var dish in dishes)
             {
                 PedidosPlatos pedidosPlatos = new PedidosPlatos()
                 {
                     Pedido_Id = id,
-                    Id = plato.IdPlato,
-                    Cantidad=plato.Cantidad 
+                    Id = dish.IdPlato,
+                    Cantidad=dish.Cantidad 
                 };
 
                 repoOrdersDishes.Add(pedidosPlatos);

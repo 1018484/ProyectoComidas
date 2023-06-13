@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio.Modelos.DTO
+namespace Dominio.DTO
 {
     public class UsuarioClaims
     {
         public string Id { get; set; }
         public string Rol { get; set; }
         public string Correo { get; set; }
-
     }
 
 }

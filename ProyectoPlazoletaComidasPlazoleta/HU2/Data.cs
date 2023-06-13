@@ -1,5 +1,5 @@
-﻿using Dominio.Modelos;
-using Dominio.Modelos.DTO;
+﻿using Dominio.DTO;
+using Dominio.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

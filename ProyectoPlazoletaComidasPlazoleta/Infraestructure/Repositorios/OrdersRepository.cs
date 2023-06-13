@@ -31,14 +31,14 @@ namespace Infraestructure.Repositorios
         }
 
         public List<Pedidos> GetOrders(int id)
-        {          
-
-            return  db_context.Pedidos.Include(x=> x.PedidosPlatos).Where(c=> c.RestaurantesNIT_Id == id).ToList();           
+        {
+            return db_context.Pedidos.Include(x => x.PedidosPlatos).Where(c => c.RestaurantesNIT_Id == id).ToList();
         }
+        
 
         public Pedidos GetByID(string id)
         {
-            return db_context.Pedidos.Where(x => x.Cliente_Id == id && (x.Estado == (int)EnumEstados.EnProceso || x.Estado == (int)EnumEstados.Pendiente || x.Estado == (int)EnumEstados.EnPreparacion || x.Estado == (int)EnumEstados.Listo)).FirstOrDefault();
+            return db_context.Pedidos.Where(x => x.Cliente_Id == id && (x.Estado == (int)EnumStatus.EnProceso || x.Estado == (int)EnumStatus.Pendiente || x.Estado == (int)EnumStatus.EnPreparacion || x.Estado == (int)EnumStatus.Listo)).FirstOrDefault();
         }
         public List<Pedidos> GetAll()
         {            
@@ -54,7 +54,7 @@ namespace Infraestructure.Repositorios
             }
 
             select.Chef_Id = employeeID;
-            select.Estado = (int)EnumEstados.EnPreparacion;
+            select.Estado = (int)EnumStatus.EnPreparacion;
 
             db_context.Pedidos.Update(select);
             db_context.SaveChanges();

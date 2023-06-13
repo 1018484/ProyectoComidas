@@ -1,7 +1,7 @@
 ﻿using Aplicacion.Interfaces;
 using AutoMapper;
+using Dominio.DTO;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using System;
 using System.Collections.Generic;

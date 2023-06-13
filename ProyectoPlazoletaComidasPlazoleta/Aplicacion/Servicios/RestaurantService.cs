@@ -8,8 +8,8 @@ using Dominio.Modelos;
 using Dominio.Repositorios;
 using System.Text.RegularExpressions;
 using Aplicacion.Validaciones;
-using Dominio.Modelos.DTO;
 using AutoMapper;
+using Dominio.DTO;
 
 namespace Applicacion.Repositorio
 {

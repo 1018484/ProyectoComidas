@@ -15,13 +15,13 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
-using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
 using Moq;
 using AutoMapper;
 using Test;
 using System.ComponentModel.DataAnnotations;
 using Dominio.Mapp;
+using Dominio.DTO;
 
 namespace HU2
 {

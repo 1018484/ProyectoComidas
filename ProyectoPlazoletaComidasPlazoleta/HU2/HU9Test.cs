@@ -1,6 +1,6 @@
 ﻿using Aplicacion.Servicios;
 using Dominio.Modelos;
-using Dominio.Modelos.DTO;
+using Dominio.DTO;
 using Dominio.Repositorios;
 using Moq;
 using Newtonsoft.Json;

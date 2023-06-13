@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio.Modelos.DTO
+namespace Dominio.DTO
 {
     public class PlatosPedidosDTO
     {
         public int IdPlato { get; set; }
 
-        public int Cantidad { get; set;}
-       
+        public int Cantidad { get; set; }
+
     }
 }
