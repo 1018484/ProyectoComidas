@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "/qXeg5R+h1J3uDjcxWDrQHZnF7x1Wn/7mUueLjYI/u82b0RJDwZt0mF8Wsy93BW3Y5O2+ZzNttEFwXff7/JrLg==",
+  "dgSpecHash": "IhbBCXr7HDaPhvpNCH301a6rBTn0RmT27i5ZAH2zRK4Rl/F/qAvDGlIR6F9Qkk3kMAJ+32M7TszcNXajO3mW3A==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidas\\Infraestructure\\Infraestructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
-    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",

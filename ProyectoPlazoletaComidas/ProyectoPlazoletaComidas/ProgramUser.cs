@@ -1,7 +1,10 @@
 using Applicacion.Interfaces;
 using Applicacion.Repositorio;
+using AutoMapper;
 using Dominio.Modelos;
+using Dominio.Modelos.DTO;
 using Dominio.Repositorios;
+using Infraestructure.Entity;
 using Infraestructure.Repositorios;
 using infrastructure.Context;
 using infrastructure.Repositorios;
@@ -30,26 +33,35 @@ builder.Services.AddAuthentication(config =>
     config.RequireHttpsMetadata = true;
     config.SaveToken = true;
     config.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,        
-        ValidateIssuerSigningKey = true,
+    {        
         ValidIssuer = builder.Configuration.GetSection("Settings").GetSection("Issuer").ToString(),
         ValidAudience = builder.Configuration.GetSection("Settings").GetSection("Audiencie").ToString(),
         IssuerSigningKey = new SymmetricSecurityKey(KeyBytes),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true
     };
 });
+
+//var mapperConfig = new MapperConfiguration(new MapperConfigurationEx
+
+//);
+
+//IMapper mapper = mapperConfig.CreateMapper();
+
+//builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(typeof(ProgramUser).Assembly);
+builder.Services.AddMvc();
 
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Plazoleta",
     client => client.BaseAddress = new Uri("https://localhost:7270"));
-//builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL")));
-builder.Services.AddScoped<IRepositorioBase<Usuarios, int>, UsuariosRepository>();
-builder.Services.AddSingleton<IRoles, RolesRepositorio>();
-builder.Services.AddScoped<IRepositorioRestauranteEmpleados<RestauranteEmpleados, int>, RepositorioRestauranteEmpleados>();
-builder.Services.AddScoped<IUsuarioServicio, UsuariosServicio>();
+builder.Services.AddScoped<IUserRepository<User, UserDTO, int>, UserRepository>();
+builder.Services.AddSingleton<IRolesRepository, RolesRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 // Add services to the container.
 

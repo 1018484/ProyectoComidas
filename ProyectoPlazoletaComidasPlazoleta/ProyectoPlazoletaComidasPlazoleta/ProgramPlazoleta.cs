@@ -38,19 +38,21 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Usuarios",
     client => client.BaseAddress = new Uri("https://localhost:7191"));
-builder.Services.AddScoped<IRepositorioRestaurante<Restaurantes, int>, RestauranteRepositorio>();
-builder.Services.AddScoped<IRepositorioUsuariosRemoto<Usuarios, int>, UsuarioRepositorioRemoto>();
-builder.Services.AddSingleton<IRoles, RolesRepositorio>();
-builder.Services.AddScoped<IRepositorioPlatos<Platos, string, int>, PlatosRepositotio>();
-builder.Services.AddScoped<IRepositotioPedidos<Pedidos, string>, PedidosRepositorio>();
-builder.Services.AddScoped<IRepositorioPedidosPlatos<PedidosPlatos>, PedidosPlatosRepositorio>();
-builder.Services.AddScoped<IClientesServicio, ClienteServicio>();
-builder.Services.AddScoped<IPlatosServicio<PlatosDTO, int>, PlatosServicio>();
-builder.Services.AddScoped<IRestaruranteServicio, RestauranteServicio>();
-builder.Services.AddScoped<IEmpleadosServicio, EmpleadoServicio>();
+builder.Services.AddScoped<IRestaurantRespository<Restaurantes, int>, RestaurantRepository>();
+builder.Services.AddScoped<IUsersRemotoRepository<Usuarios, int>, UserRemotoRepository>();
+builder.Services.AddSingleton<IRoles, RolesRepository>();
+builder.Services.AddScoped<IDishesRepository<Platos, string, int>, DishesRepository>();
+builder.Services.AddScoped<IOrdersRepository<Pedidos, string>, OrdersRepository>();
+builder.Services.AddScoped<IDishesOrdersRepository<PedidosPlatos>, DishesOrdersRepository>();
+builder.Services.AddScoped<IEmployeeRestaurantRepository<EmpleadosRestaurantes, int>, EmployeeRestaurantsRepository>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IDishesService, DishesService>();
+builder.Services.AddScoped<IRestarurantService, RestaurantService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 
 

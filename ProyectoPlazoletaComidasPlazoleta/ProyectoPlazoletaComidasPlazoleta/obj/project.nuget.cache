@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "TvH9h6ZUN5FwUJQOTFqMzJOPsQggB4zYMuEHnkOGMHHrasNulhrk/ycEhfXJQhnG//L+VaIVGk+aIvFvlkA6mQ==",
+  "dgSpecHash": "rzXU4VmjVWEHKKo2z9GFiILodVT4qO8LhoVZB9eQX0q5w9ZhXnYo2m3ZBd4AqckzcN9Knt+CF4HO9YIIsAuYAA==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidasPlazoleta\\ProyectoPlazoletaComidasPlazoleta\\ProyectoPlazoletaComidasPlazoleta.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
-    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",

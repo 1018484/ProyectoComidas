@@ -15,7 +15,6 @@ namespace infrastructure.Context
         {
 
         }       
-
         public DbSet<Restaurantes> Restaurantes { get; set; }        
 
         public DbSet<Platos> Platos { get; set; }
@@ -23,6 +22,8 @@ namespace infrastructure.Context
         public DbSet<Pedidos> Pedidos { get; set; }
 
         public DbSet<PedidosPlatos> PedidosPlatos { get; set; }  
+
+        public DbSet<EmpleadosRestaurantes> EmpleadosRestaurantes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

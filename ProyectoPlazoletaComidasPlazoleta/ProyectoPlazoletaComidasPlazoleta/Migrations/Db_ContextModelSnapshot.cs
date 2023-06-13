@@ -22,6 +22,19 @@ namespace ProyectoPlazoletaComidasPlazoleta.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Dominio.Modelos.EmpleadosRestaurantes", b =>
+                {
+                    b.Property<int>("EmpleadoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestauranteNIT")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmpleadoId");
+
+                    b.ToTable("EmpleadosRestaurantes");
+                });
+
             modelBuilder.Entity("Dominio.Modelos.Pedidos", b =>
                 {
                     b.Property<Guid>("Pedido_Id")
@@ -47,7 +60,7 @@ namespace ProyectoPlazoletaComidasPlazoleta.Migrations
 
                     b.HasIndex("RestaurantesNIT_Id");
 
-                    b.ToTable("Pedidos", (string)null);
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("Dominio.Modelos.PedidosPlatos", b =>
@@ -65,7 +78,7 @@ namespace ProyectoPlazoletaComidasPlazoleta.Migrations
 
                     b.HasIndex("Id");
 
-                    b.ToTable("PedidosPlatos", (string)null);
+                    b.ToTable("PedidosPlatos");
                 });
 
             modelBuilder.Entity("Dominio.Modelos.Platos", b =>
@@ -105,7 +118,7 @@ namespace ProyectoPlazoletaComidasPlazoleta.Migrations
 
                     b.HasIndex("RestaurantesNIT_Id");
 
-                    b.ToTable("Platos", (string)null);
+                    b.ToTable("Platos");
                 });
 
             modelBuilder.Entity("Dominio.Modelos.Restaurantes", b =>
@@ -134,7 +147,7 @@ namespace ProyectoPlazoletaComidasPlazoleta.Migrations
 
                     b.HasKey("NIT_Id");
 
-                    b.ToTable("Restaurantes", (string)null);
+                    b.ToTable("Restaurantes");
                 });
 
             modelBuilder.Entity("Dominio.Modelos.Pedidos", b =>

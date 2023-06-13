@@ -9,12 +9,9 @@ namespace Dominio.Modelos.DTO
 {
     public class PlatosDTO
     {
-        
         public int Id { get; set; }
-
      
         public string NombrePlato { get; set; }
-
         
         public int Precio { get; set; }
 

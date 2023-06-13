@@ -27,28 +27,28 @@ namespace PlazoletaComidas.Controllers
     [ApiController]
     public class AutenticacionController : ControllerBase
     {
-        private readonly IUsuarioServicio _usuarioServicio;       
+        private readonly IUserService _usuarioServicio;       
 
         private readonly string secretkey;
 
-        public AutenticacionController(IConfiguration config, IUsuarioServicio usuarioServicio)        
+        public AutenticacionController(IConfiguration config, IUserService usuarioServicio)        
         {
             secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();
             _usuarioServicio = usuarioServicio;            
         }       
 
         [HttpPost]
-        [Route("InicioSesion")]
-        public IActionResult InicioSesion([FromBody] UsuarioDTO usuario)
+        [Route("StartSesion")]
+        public IActionResult StartSesion([FromBody] UserLogin usuario)
         {            
-            var _usuario = _usuarioServicio.ValidaUsusarioContraseña(usuario);
+            var _usuario = _usuarioServicio.PasswordValidation(usuario);
             if (_usuario != null)
             {
                 var KeyBytes = Encoding.ASCII.GetBytes(secretkey);
                 var claims = new ClaimsIdentity();
-                claims.AddClaim(new Claim("ID", _usuario.DocumentoId.ToString()));
-                claims.AddClaim(new Claim("Correo", _usuario.Correo.ToString()));
-                claims.AddClaim(new Claim("Rol", _usuario.RolesRolId.ToString()));
+                claims.AddClaim(new Claim("ID", _usuario.DocumenId.ToString()));
+                claims.AddClaim(new Claim("Correo", _usuario.Email.ToString()));
+                claims.AddClaim(new Claim(ClaimTypes.Role, _usuario.RolsRolId.ToString()));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = claims,
@@ -64,16 +64,13 @@ namespace PlazoletaComidas.Controllers
             }
             else
             {
-                return StatusCode(StatusCodes.Status401Unauthorized, new
-                {
-                    token = ""
-                });
+                return StatusCode(StatusCodes.Status401Unauthorized);
             }
         }
 
 
         [HttpGet("{token}")]        
-        public ActionResult<UsuarioClaims> ValidadRol(string token)
+        public ActionResult<UserClaims> TokenAuthentication(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretkey);
@@ -89,11 +86,11 @@ namespace PlazoletaComidas.Controllers
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                UsuarioClaims claims = new UsuarioClaims()
+                UserClaims claims = new UserClaims()
                 {
-                    Rol = jwtToken.Claims.First(x => x.Type == "Rol").Value,
+                    Rol = jwtToken.Claims.First(x => x.Type == "role").Value,
                     Id = jwtToken.Claims.First(x => x.Type == "ID").Value,
-                    Correo = jwtToken.Claims.First(x => x.Type == "Correo").Value
+                    Email = jwtToken.Claims.First(x => x.Type == "Correo").Value
                 };
 
                 return claims;

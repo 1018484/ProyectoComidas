@@ -21,185 +21,109 @@ using Moq;
 using Dominio.Repositorios;
 using System;
 using System.Runtime.InteropServices.ObjectiveC;
+using AutoMapper;
+using Dominio.Mapp;
 
 namespace Test
 {
     public class HU5Test
     {
+        private Mock<IDishesRepository<Platos, string, int>> repoDish = new Mock<IDishesRepository<Platos, string, int>>();
+        private Mock<IRestaurantRespository<Restaurantes, int>> repoRestaurant = new Mock<IRestaurantRespository<Restaurantes, int>>();
+        private Mock<IUsersRemotoRepository<Usuarios, int>> repoUsers = new Mock<IUsersRemotoRepository<Usuarios, int>>();
+        private Mock<IRoles> Roles = new Mock<IRoles>();
+        private Mock<IEmployeeRestaurantRepository<EmpleadosRestaurantes, int>> repoEmplyeeRestaurant = new Mock<IEmployeeRestaurantRepository<EmpleadosRestaurantes, int>>();
+        private IMapper mapper;
+        private Data data;
+
+        public HU5Test()
+        {
+            data = new Data();
+        }
+
+
         [Fact]
-        public async Task CrearRestauranteValidaRol()
+        public async Task CreteRestaurantValidRol()
         {
             try
             {
-                RestaurantesDTO restDTO = new RestaurantesDTO()
-                {
-                    NIT_Id = 32235,
-                    Nombre = "la hambugueseria123",
-                    Direccion = "carrera33b#28-50",
-                    Telefono = "314993783",
-                    URLLogo = "mcpollo.img",
-                    DocumentoId = 10184841
-                };
+                var config = new MapperConfiguration(opts => opts.AddMaps(new[]
+            {
+                typeof(Mapprestaurant),
+            }));
 
-                Restaurantes rest = new Restaurantes()
-                {
-                    NIT_Id = 32235,
-                    Nombre = "la hambugueseria123",
-                    Direccion = "carrera33b#28-50",
-                    Telefono = "314993783",
-                    URLLogo = "mcpollo.img",
-                    DocumentoId = 10184841
-                };
+                mapper = config.CreateMapper();
 
-                UsuarioClaims claims = new UsuarioClaims()
-                {
-                    Rol = "2",
-                    Id = "10184841",
-                    Correo = "mapu@gmail.com"
-                };
-
-                Usuarios usuarios = new Usuarios()
-                {
-                    DocumentoId = 10184841,
-                    Nombre = "liana",
-                    Apellido = "fonseca",
-                    Celular = "+5712312",
-                    Correo = "li@hotmail.com",
-                    Clave = "1234",
-                    RolesRolId = 2
-                };
-
-                Mock<IRepositorioRestaurante<Restaurantes, int>> restaurente = new Mock<IRepositorioRestaurante<Restaurantes, int>>();
-                Mock<IRepositorioUsuariosRemoto<Usuarios, int>> Usuarios = new Mock<IRepositorioUsuariosRemoto<Usuarios, int>>();
-                Mock<IRoles> Roles = new Mock<IRoles>();
-                restaurente.Setup(x => x.Agregar(rest)).Returns(rest);
-                Usuarios.Setup(x => x.UsuarioID(rest.DocumentoId)).ReturnsAsync(usuarios);
+                RestaurantesDTO restDTO = data.RestaurantDTO();
+                Restaurantes rest = mapper.Map<Restaurantes>(restDTO);
+                UsuarioClaims claims = data.UserOwnerClaims();
+                Usuarios usuarios = data.Users();
+                repoRestaurant.Setup(x => x.Add(rest)).Returns(rest);
+                repoUsers.Setup(x => x.GetUserID(rest.DocumentoId)).ReturnsAsync(usuarios);
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
-                RestauranteServicio servicio = new RestauranteServicio(restaurente.Object, Usuarios.Object, Roles.Object);
-                var result = servicio.Agregar(restDTO);
-            } 
+                RestaurantService service = new RestaurantService(repoRestaurant.Object, repoUsers.Object, Roles.Object, repoEmplyeeRestaurant.Object, mapper);
+                var result = service.AddRestaurant(restDTO);
+            }
             catch (Exception ex)
             {
-                Assert.Equal("usuario no tiene acceso para crear un restaurante", ex.Message);
+                Assert.Equal("User Not authorized", ex.Message);
             }
         }
-
-        [Fact]
-        public async Task CrearPlatovalidaRol()
+        [Fact]        
+        public async Task CreateDishValidateRol()
         {
             try
             {
-                PlatosDTO platoDTO = new PlatosDTO()
+                var config = new MapperConfiguration(opts => opts.AddMaps(new[]
                 {
-                    NombrePlato = "Pollo sudado",
-                    Precio = 5000,
-                    Desacripcion = "Pollo sudado",
-                    URLImagen = "Pollosudado",
-                    Activo = true,
-                    Categoria = "Pollo",
-                    RestaurantesNIT_Id = 32235
-                };
+                    typeof(Mapprestaurant),
+                }));
 
-                Platos plato = new Platos()
-                {
-                    NombrePlato = "Pollo sudado",
-                    Precio = 5000,
-                    Desacripcion = "Pollo sudado",
-                    URLImagen = "Pollosudado",
-                    Activo = true,
-                    Categoria = "Pollo",
-                    RestaurantesNIT_Id = 32235
-                };
-
-                UsuarioClaims claims = new UsuarioClaims()
-                {
-                    Rol = "1",
-                    Id = "10184841",
-                    Correo = "mapu@gmail.com"
-                };
-
-                Restaurantes rest = new Restaurantes()
-                {
-                    NIT_Id = 32235,
-                    Nombre = "la hambugueseria123",
-                    Direccion = "carrera33b#28-50",
-                    Telefono = "314993783",
-                    URLLogo = "mcpollo.img",
-                    DocumentoId = 10184841
-                };
-
-                Mock<IRepositorioPlatos<Platos, string, int>> platos = new Mock<IRepositorioPlatos<Platos, string, int>>();
-                Mock<IRepositorioRestaurante<Restaurantes, int>> restaurente = new Mock<IRepositorioRestaurante<Restaurantes, int>>();
-                Mock<IRoles> Roles = new Mock<IRoles>();
-                platos.Setup(x => x.Agregar(plato)).Returns(plato);
+                mapper = config.CreateMapper();
+                PlatosDTO DishDTO = data.DishesDTO();
+                Platos dish = data.Dish();
+                UsuarioClaims claims = data.UserAdminClaims();
+                Restaurantes rest = data.Restaurant();
+                repoDish.Setup(x => x.Add(dish)).Returns(dish);
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
-                restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
-                PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-                var resultado = await servicio.Agregar(platoDTO, 0);
+                repoRestaurant.Setup(x => x.GetByID(dish.RestaurantesNIT_Id)).Returns(rest);
+                DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper);
+                var resultado = await servicio.AddDish(DishDTO, 0);
+
             }
             catch (Exception ex)
             {
-                Assert.Equal("usuario no tiene acceso para crear un Plato", ex.Message);
-            }         
+                Assert.Contains("User Not authorized", ex.Message);
+            }
         }
 
+
         [Fact]
-        public async Task CrearPlatovalidaUsuarioPopietario()
+        public async Task CreateDishValidateUser()
         {
             try
             {
-                PlatosDTO platoDTO = new PlatosDTO()
+                var config = new MapperConfiguration(opts => opts.AddMaps(new[]
                 {
-                    NombrePlato = "Pollo sudado",
-                    Precio = 5000,
-                    Desacripcion = "Pollo sudado",
-                    URLImagen = "Pollosudado",
-                    Activo = true,
-                    Categoria = "Pollo",
-                    RestaurantesNIT_Id = 32235
-                };
+                    typeof(Mapprestaurant),
+                }));
 
-                Platos plato = new Platos()
-                {
-                    NombrePlato = "Pollo sudado",
-                    Precio = 5000,
-                    Desacripcion = "Pollo sudado",
-                    URLImagen = "Pollosudado",
-                    Activo = true,
-                    Categoria = "Pollo",
-                    RestaurantesNIT_Id = 32235
-                };
-
-                UsuarioClaims claims = new UsuarioClaims()
-                {
-                    Rol = "2",
-                    Id = "20018929",
-                    Correo = "mapu@gmail.com"
-                };
-
-                Restaurantes rest = new Restaurantes()
-                {
-                    NIT_Id = 32235,
-                    Nombre = "la hambugueseria123",
-                    Direccion = "carrera33b#28-50",
-                    Telefono = "314993783",
-                    URLLogo = "mcpollo.img",
-                    DocumentoId = 10184841
-                };
-
-                Mock<IRepositorioPlatos<Platos, string, int>> platos = new Mock<IRepositorioPlatos<Platos, string, int>>();
-                Mock<IRepositorioRestaurante<Restaurantes, int>> restaurente = new Mock<IRepositorioRestaurante<Restaurantes, int>>();
-                Mock<IRoles> Roles = new Mock<IRoles>();
-                platos.Setup(x => x.Agregar(plato)).Returns(plato);
+                mapper = config.CreateMapper();
+                PlatosDTO DishDTO = data.DishesDTO();
+                Platos dish = data.Dish();
+                UsuarioClaims claims = data.UserOwnerClaims2();
+                Restaurantes rest = data.Restaurant();
+                repoDish.Setup(x => x.Add(dish)).Returns(dish);
                 Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
-                restaurente.Setup(x => x.obtener(plato.RestaurantesNIT_Id)).Returns(rest);
-                PlatosServicio servicio = new PlatosServicio(platos.Object, restaurente.Object, Roles.Object);
-                var resultado = await servicio.Agregar(platoDTO, 0);
+                repoRestaurant.Setup(x => x.GetByID(dish.RestaurantesNIT_Id)).Returns(rest);
+                DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper);
+                var resultado = await servicio.AddDish(DishDTO, 0);
+
             }
             catch (Exception ex)
             {
-                Assert.Equal("El Usuario no puede insertar plato a otro restaurante", ex.Message);
+                Assert.Contains("The User cannot insert a dish to another restaurant", ex.Message);
             }
-        }
+        } 
     }
 }

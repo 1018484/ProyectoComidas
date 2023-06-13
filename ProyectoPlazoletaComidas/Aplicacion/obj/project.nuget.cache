@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "fM1rDkDRTy48k8qxQ8LNdB8YTgvtByR+AF3VfgJghcJ2eFZDjWG67AhrGg/loinD4wjKNMKyn42NQpkoBO59pg==",
+  "dgSpecHash": "txJ29JWlydMDton1b7WT1J9b7iL6A1ftBFImLklkAWt85+cxAaLNdVubFVXBtq/9H5X0SjIJN6GMLulQYhPELg==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidas\\Aplicacion\\Aplicacion.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -10,10 +10,6 @@ namespace Dominio.Repositorios
 {
     public interface IRoles
     {
-        string RolClaims();
-
         Task<UsuarioClaims> getToken();
-
-
     }
 }

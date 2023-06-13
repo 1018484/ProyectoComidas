@@ -13,13 +13,13 @@ namespace Dominio.Modelos
         [ForeignKey("Pedidos")]        
         public Guid Pedido_Id { get; set;}
 
-        public Pedidos Pedidos { get; set; }
+        public virtual Pedidos Pedidos { get; set; }
 
 
         [ForeignKey("Platos")]
         public int Id { get; set; }     
         
-        public Platos Platos { get; set; }  
+        public virtual  Platos Platos { get; set; }  
 
         public int Cantidad { get; set; }
         

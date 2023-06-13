@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Dominio.Modelos;
+using Infraestructure.Entity;
 
 namespace infrastructure.Context
 {
@@ -14,11 +14,9 @@ namespace infrastructure.Context
         {
 
         }
-        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<User> User { get; set; }
 
-        public DbSet<Roles> Roles { get; set; }
-
-        public DbSet<RestauranteEmpleados> RestauranteEmpleados { get; set; }
+        public DbSet<Rols> Roles { get; set; }       
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
