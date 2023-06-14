@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Dominio.User_Case;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL"), b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
@@ -42,6 +43,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Usuarios",
     client => client.BaseAddress = new Uri("https://localhost:7191"));
+builder.Services.AddHttpClient("Mensageria",
+    client => client.BaseAddress = new Uri("https://localhost:7218"));
 builder.Services.AddScoped<IRestaurantRespository<Restaurantes, int>, RestaurantRepository>();
 builder.Services.AddScoped<IUsersRemotoRepository<Usuarios, int>, UserRemotoRepository>();
 builder.Services.AddSingleton<IRoles, RolesRepository>();
@@ -49,6 +52,11 @@ builder.Services.AddScoped<IDishesRepository<Platos, string, int>, DishesReposit
 builder.Services.AddScoped<IOrdersRepository<Pedidos, string>, OrdersRepository>();
 builder.Services.AddScoped<IDishesOrdersRepository<PedidosPlatos>, DishesOrdersRepository>();
 builder.Services.AddScoped<IEmployeeRestaurantRepository<EmpleadosRestaurantes, int>, EmployeeRestaurantsRepository>();
+builder.Services.AddScoped<IMessageRemotoRepository, MessageRemotoRepository>();
+builder.Services.AddScoped<IEmployee, Employee>();
+builder.Services.AddScoped<IRestaurant, Restaurant>();
+builder.Services.AddScoped<IDishes, Dishes>();
+builder.Services.AddScoped<IClients, Client>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IDishesService, DishesService>();
 builder.Services.AddScoped<IRestarurantService, RestaurantService>();

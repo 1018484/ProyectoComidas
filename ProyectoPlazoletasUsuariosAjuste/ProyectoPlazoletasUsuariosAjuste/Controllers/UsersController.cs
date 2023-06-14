@@ -9,47 +9,73 @@ using Dominio.DTO;
 
 namespace PlazoletaComidas.Controllers
 {
-    
+    /// <summary>
+    /// Users Controller
+    /// </summary> 
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
+        /// <summary>
+        /// User Service
+        /// </summary> 
         private readonly IUserService _userService;
 
+        /// <summary>
+        /// initialize Controller
+        /// </summary>        
+        /// <param name="userService">user Service</param>
         public UsersController(IUserService userService)
         {
             _userService = userService;
-        }      
+        }
 
+        /// <summary>
+        /// Get User By Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>User</returns>  
         [HttpGet("{id}")]
         public ActionResult<Usuarios> ListUserByID(int id)
         {
             return _userService.GetById(id);        
         }
 
+        /// <summary>
+        /// Add Owner
+        /// </summary>
+        /// <param name="userDTO">User Dto</param>        
         [HttpPost]
         [Route("Propietario")]
         [Authorize(Roles = "1")]
-        public IActionResult CreateOwner([FromBody] UsuarioDTO usuario)
+        public IActionResult CreateOwner([FromBody] UsuarioDTO userDTO)
         {           
-            _userService.AddOwner(usuario);
+            _userService.AddOwner(userDTO);
             return Ok("");           
         }
 
+        /// <summary>
+        /// Add Employee
+        /// </summary>
+        /// <param name="userDTO">User Dto</param>  
         [HttpPost]
         [Route("Empleados")]
         [Authorize(Roles = "2")]
-        public IActionResult CreateEmployee([FromBody] UsuarioDTO usuario)
+        public IActionResult CreateEmployee([FromBody] UsuarioDTO userDTO)
         {            
-             _userService.AddEmployee(usuario);
+             _userService.AddEmployee(userDTO);
             return Ok("");           
         }
 
+        /// <summary>
+        /// Add client
+        /// </summary>
+        /// <param name="userDTO">User Dto</param> 
         [HttpPost]
         [Route("Cliente")]
-        public IActionResult CreateClient([FromBody] UsuarioDTO usuario)
+        public IActionResult CreateClient([FromBody] UsuarioDTO userDTO)
         {           
-            _userService.AddUser(usuario);
+            _userService.AddUser(userDTO);
             return Ok("");            
             
         }

@@ -3,6 +3,7 @@ using AutoMapper;
 using Dominio.DTO;
 using Dominio.Modelos;
 using Dominio.Repositorios;
+using Dominio.User_Case;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,41 +14,62 @@ namespace Aplicacion.Repositorio
 {
     public class DishesService : IDishesService
     {
+        /// <summary>
+        /// Dishes Restaurant DbSet
+        /// </summary>
         private readonly IDishesRepository<Platos, string, int> repoDishes;
+
+        /// <summary>
+        /// Repository Restaurant DbSet
+        /// </summary>
         private readonly IRestaurantRespository<Restaurantes, int> repoRestaurant;
+
+        /// <summary>
+        /// Repository Valid token and sesion
+        /// </summary>
         private readonly IRoles repoRoles;
+
+        // <summary>
+        /// AutoMapper
+        /// </summary>
         private readonly IMapper mapper;
+
+        /// <summary>
+        /// Repository employee DBbSet
+        /// </summary>
+        private readonly IDishes useDishes;
+
+        /// <summary>
+        /// User sesion
+        /// </summary>
         private Task<UsuarioClaims> getClaims;
 
-        public DishesService(IDishesRepository<Platos, string, int> repoPlatos, IRestaurantRespository<Restaurantes, int> repoRestaurantes, IRoles roles, IMapper mapper)
+        /// <summary>
+        /// initialize class.
+        /// </summary> 
+        /// <param name="mapper">Automapper</param>
+        /// <param name="repoPlatos">Intance Repository Dishes<</param>
+        /// <param name="repoRestaurantes">Intance Repository Restauramts<</param>
+        /// <param name="roles">Intance Repository Roles<</param>
+        /// <param name="useDishes">Use Case Dishes</param>
+
+        public DishesService(IDishesRepository<Platos, string, int> repoPlatos, IRestaurantRespository<Restaurantes, int> repoRestaurantes, IRoles roles, IMapper mapper, IDishes useDishes)
         {
             this.repoDishes = repoPlatos;  
             this.repoRestaurant = repoRestaurantes;
             this.repoRoles = roles;
             this.mapper = mapper;
             this.getClaims = this.repoRoles.getToken();
+            this.useDishes = useDishes;
         }
         public async Task<Platos> AddDish(PlatosDTO entiyDTO)
         {
-            Platos dish = mapper.Map<Platos>(entiyDTO);           
-            if (int.Parse(getClaims.Result.Rol) != (int)EnumRoles.Propietario)
-            {
-                throw new Exception("User Not authorized");
-            }
-
+            useDishes.ValidateRol(getClaims);
+            Platos dish = mapper.Map<Platos>(entiyDTO);          
             dish.Id = 0;
             dish.Activo = true;      
             var restauranteinfo = repoRestaurant.GetByID(dish.RestaurantesNIT_Id);
-            if(restauranteinfo == null)
-            {
-                throw new Exception("The restaurant does not exist");
-            }
-
-            if(restauranteinfo.DocumentoId != int.Parse(getClaims.Result.Id))
-            {
-                throw new Exception("The User cannot insert a dish to another restaurant");
-            }            
-
+            useDishes.ValidateRestaurant(restauranteinfo, getClaims);
             var result = this.repoDishes.Add(dish);
             this.repoDishes.Confirm();
             return result;
@@ -55,30 +77,18 @@ namespace Aplicacion.Repositorio
 
         public async Task<Platos> EditDish(PlatosDTO entidadDTO)
         {
-            Platos entidad = mapper.Map<Platos>(entidadDTO);                          
-            if (int.Parse(getClaims.Result.Rol) != (int)EnumRoles.Propietario)
-            {
-                throw new Exception("User Not authorized");
-            }           
-
-            var restauranteinfo = repoRestaurant.GetByID(entidad.RestaurantesNIT_Id);
-            if (restauranteinfo.DocumentoId != int.Parse(getClaims.Result.Id))
-            {
-                throw new Exception("The User cannot Edit a dish to another restaurant");
-            }
-
-            var seleccionado = repoDishes.GetByRestaurantNIT(entidad.NombrePlato, entidad.RestaurantesNIT_Id);
-            if (seleccionado == null)
-            {
-                throw new Exception("El Plato a editar no existe");
-            }
-
-            seleccionado.Precio = entidad.Precio;
-            seleccionado.Desacripcion = entidad.Desacripcion;
-            seleccionado.Activo = entidad.Activo;
-            repoDishes.Edit(seleccionado);
+            Platos entidad = mapper.Map<Platos>(entidadDTO);
+            useDishes.ValidateRol(getClaims);
+            var restInfo = repoRestaurant.GetByID(entidad.RestaurantesNIT_Id);
+            useDishes.ValidateRestaurant(restInfo, getClaims);      
+            var select = repoDishes.GetByRestaurantNIT(entidad.NombrePlato, entidad.RestaurantesNIT_Id);
+            useDishes.ValidateDish(select);
+            select.Precio = entidad.Precio;
+            select.Desacripcion = entidad.Desacripcion;
+            select.Activo = entidad.Activo;
+            repoDishes.Edit(select);
             repoDishes.Confirm();
-            return seleccionado;
+            return select;
         }
     }
 }

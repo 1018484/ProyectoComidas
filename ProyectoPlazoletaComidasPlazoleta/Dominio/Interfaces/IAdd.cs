@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Dominio.Interfaces
-{
+{  
     public interface IAdd<Tentity>
-    {
+    {    
         Tentity Add(Tentity entidad);
     }
 }

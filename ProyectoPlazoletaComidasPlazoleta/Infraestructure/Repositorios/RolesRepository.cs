@@ -18,45 +18,73 @@ using Dominio.DTO;
 
 namespace Infraestructure.Repositorios
 {
+    /// <summary>
+    /// Rol and authentication Repository httpClient   
+    /// </summary>  
     public class RolesRepository : IRoles
-    {       
+    {
+        /// <summary>
+        /// httpt context   
+        /// </summary> 
         private readonly IHttpContextAccessor httpContext;
 
+
+        /// <summary>
+        /// Http intance  
+        /// </summary>  
         private readonly IHttpClientFactory _cliente;
 
+        /// <summary>
+        /// Initialize Db_Context
+        /// </summary>
+        /// <param name="httpContext">httpContext.</param>
+        /// <param name="cliente">htttpClient</param>
         public RolesRepository(IHttpContextAccessor httpContext, IHttpClientFactory cliente)
         {
             this.httpContext = httpContext;
             this._cliente = cliente;    
         }
 
+        /// <summary>
+        /// session validation and authentication
+        /// </summary> 
+        /// <returns>User legged in</returns>
         public async Task<UsuarioClaims> getToken()
         {
-            var Token = await httpContext.HttpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
-            if (string.IsNullOrEmpty(Token))
+            try
             {
-                return null;
-            }
-
-            var httpClient =  _cliente.CreateClient("Usuarios");
-            var result = await httpClient.GetAsync($"/api/Autenticacion/{Token}");
-            if (result.IsSuccessStatusCode)
-            {
-                var contenido = await result.Content.ReadAsStringAsync();
-                if (string.IsNullOrEmpty(contenido))
+                var Token = await httpContext.HttpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
+                if (string.IsNullOrEmpty(Token))
                 {
                     return null;
                 }
-                var options = new JsonSerializerOptions()
+
+                var httpClient = _cliente.CreateClient("Usuarios");
+                var result = await httpClient.GetAsync($"/api/Autenticacion/{Token}");
+                if (result.IsSuccessStatusCode)
                 {
-                    PropertyNameCaseInsensitive = true,
-                };
+                    var contenido = await result.Content.ReadAsStringAsync();
+                    if (string.IsNullOrEmpty(contenido))
+                    {
+                        return null;
+                    }
+                    var options = new JsonSerializerOptions()
+                    {
+                        PropertyNameCaseInsensitive = true,
+                    };
 
-                var resultado = JsonSerializer.Deserialize<UsuarioClaims>(contenido, options);
-                return resultado;
+                    var resultado = JsonSerializer.Deserialize<UsuarioClaims>(contenido, options);
+                    return resultado;
+                }
+
+                return null;
+
             }
-
-            return null;
+            catch (Exception ex)
+            {
+                return null;
+            }
+           
         }
         
     }

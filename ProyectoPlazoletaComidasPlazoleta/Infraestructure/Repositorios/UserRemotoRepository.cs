@@ -9,16 +9,30 @@ using System.Text.Json;
 
 namespace Infraestructure.Repositorios
 {
+    /// <summary>
+    /// UserRemoto Repository httpClient   
+    /// </summary>  
     public class UserRemotoRepository : IUsersRemotoRepository<Usuarios, int>
     {
-
+        /// <summary>
+        /// Http intance  
+        /// </summary>  
         private readonly IHttpClientFactory _httpClient;
 
+        /// <summary>
+        /// Initialize Http intance  
+        /// </summary>
+        /// <param name="httpClient">httpClient.</param>
         public UserRemotoRepository(IHttpClientFactory httpClient)
         {            
             _httpClient = httpClient;
-        }       
+        }
 
+        /// <summary>
+        /// Get user  Remoto by id   
+        /// </summary>  
+        /// <param name="id">userid</param>
+        /// <returns>User</returns>
         public async Task<Usuarios> GetUserID(int id)
         {
             try

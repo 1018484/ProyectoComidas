@@ -30,6 +30,8 @@ namespace Dominio.Modelos
         public int RestaurantesNIT_Id { get; set; }
 
         public List<PedidosPlatos> PedidosPlatos { get; set; } 
+
+        public int Codigo { get; set; }
         
     }
 }

@@ -9,11 +9,23 @@ using System.Threading.Tasks;
 
 namespace Applicacion.Interfaces
 {
+    /// <summary>
+    /// IRestaurant Service
+    /// </summary>
     public interface IRestarurantService
     {
-        Task<Restaurantes> AddRestaurant(RestaurantesDTO entidaDTO);
+        /// <summary>
+        /// Add Restaurant
+        /// </summary>
+        /// <param name="entityDTO">Restaurant DTO</param>
+        /// <returns>Restaurant Creeated</returns>
+        Task<Restaurantes> AddRestaurant(RestaurantesDTO entityDTO);
 
-        Task AddEmployeeRestaurant(int IdPropietario);        
+        /// <summary>
+        /// Add Restaurant
+        /// </summary>
+        /// <param name="ownerID">Owner ID</param>        
+        Task AddEmployeeRestaurant(int ownerID);        
         
     }
 }

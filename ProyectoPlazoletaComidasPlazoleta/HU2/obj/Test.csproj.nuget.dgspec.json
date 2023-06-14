@@ -298,6 +298,10 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[6.30.1, )"
@@ -393,7 +397,7 @@
             },
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[13.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

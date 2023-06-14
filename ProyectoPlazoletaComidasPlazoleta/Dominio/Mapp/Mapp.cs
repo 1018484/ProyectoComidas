@@ -10,17 +10,14 @@ using System.Threading.Tasks;
 
 namespace Dominio.Mapp
 {
-    public class Mapprestaurant:Profile
+    public class Mapp:Profile
     {
-       public Mapprestaurant() 
+       public Mapp() 
        {
             CreateMap<RestaurantesDTO, Restaurantes>();
             CreateMap<PlatosDTO, Platos>(); 
             CreateMap<Pedidos, PedidosDTO>();
-            CreateMap<Platos, PlatosDTO>();   
-            //CreateMap<List<PedidosPlatos> , List<PedidosPlatosDTO>>();
-            
-
+            CreateMap<Platos, PlatosDTO>();         
        }
     }
 }

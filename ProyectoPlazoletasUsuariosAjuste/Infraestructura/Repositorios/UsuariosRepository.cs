@@ -10,16 +10,31 @@ using System.Threading.Tasks;
 
 namespace Infraestructura.Repositorios
 {
+    /// <summary>
+    /// User Repository DbSets   
+    /// </summary>   
     public class UsuariosRepository : IUserRespository
     {
+        /// <summary>
+        /// DbContext
+        /// </summary>
         private Db_Context db_context;
 
+        /// <summary>
+        /// Initialize Db_Context
+        /// </summary>
+        /// <param name="db_context">DbContext.</param>
         public UsuariosRepository(Db_Context db_context)
         {
 
             this.db_context = db_context;
         }
 
+        /// <summary>
+        /// Add Users
+        /// </summary>
+        /// <param name="entity">User model</param>
+        /// <returns>User Add</returns>
         public Usuarios Add(Usuarios entity)
         {
             entity.Clave = BCrypt.Net.BCrypt.HashPassword(entity.Clave);
@@ -27,40 +42,29 @@ namespace Infraestructura.Repositorios
             return entity;
         }
 
+        /// <summary>
+        /// Save Chages
+        /// </summary> 
         public void Confirm()
         {
             db_context.SaveChanges();
         }
 
-        public void Edit(Usuarios entity)
-        {
-            var seleccionado = db_context.Usuarios.Where(u => u.DocumentoId == entity.DocumentoId).FirstOrDefault();
-            if (seleccionado != null)
-            {
-                seleccionado.Nombre = entity.Nombre;
-                seleccionado.Apellido = entity.Apellido;
-                seleccionado.Correo = entity.Correo;
-                seleccionado.Celular = entity.Celular;
-                seleccionado.Correo = entity.Nombre;
-                seleccionado.RolesRolId = entity.RolesRolId;
-                db_context.Usuarios.Update(seleccionado);
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var seleccionado = db_context.Usuarios.Where(u => u.DocumentoId == id).FirstOrDefault();
-            if (seleccionado != null)
-            {
-                db_context.Usuarios.Remove(seleccionado);
-            }
-        }
-
+        /// <summary>
+        /// Get user by Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>User</returns>
         public Usuarios GetByID(int id)
         {
             return db_context.Usuarios.Where(u => u.DocumentoId == id).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Valid user and Password
+        /// </summary>
+        /// <param name="login">Login</param>
+        /// <returns>User logged in </returns>
         public Usuarios ValidPassword(UserLogin login)
         {           
             var users = db_context.Usuarios.ToList();

@@ -7,27 +7,43 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Plazoleta.Controllers
 {
+    /// <summary>
+    /// Restaurant Controller
+    /// </summary> 
     [Route("api/[controller]")]
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        private readonly string secretkey;        
-
+        /// <summary>
+        /// Restaurant service
+        /// </summary>
         private readonly IRestarurantService _restarurantService;
 
+        /// <summary>
+        /// initialize Controller
+        /// </summary>        
+        /// <param name="config">Config Service</param>
+        /// <param name="restaurantService">Restaurant Service</param>
         public RestaurantController(IConfiguration config, IRestarurantService restaurantService)
-        {
-            secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();            
+        {                     
             _restarurantService = restaurantService;
-        }        
+        }
 
+        /// <summary>
+        /// Add Restaurant
+        /// </summary>
+        /// <param name="rest">RestaurantDto</param> 
         [HttpPost]
         public async Task<IActionResult> CrearRestauranteAsync([FromBody] RestaurantesDTO rest)
         {                                    
-                await _restarurantService.AddRestaurant(rest);
-                return Ok();
+            await _restarurantService.AddRestaurant(rest);
+            return Ok();
         }
 
+        /// <summary>
+        /// Add Restaurant Employee
+        /// </summary>
+        /// <param name="EmployeeId">Employee ID</param>
         [HttpPost("{EmpleadoId}")]
         public async Task<IActionResult> CrearEmpleadoRestauranteAsync(int EmployeeId)
         {

@@ -3,6 +3,7 @@ using AutoMapper;
 using Dominio.DTO;
 using Dominio.Modelos;
 using Dominio.Repositorios;
+using Dominio.User_Case;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,81 +12,143 @@ using System.Threading.Tasks;
 
 namespace Aplicacion.Servicios
 {
+    /// <summary>
+    /// Employee Service Class.
+    /// </summary>
     public class EmployeeService : IEmployeeService
     {
-
+        /// <summary>
+        /// Repository Orders DBbSet
+        /// </summary>
         private readonly IOrdersRepository<Pedidos, string> repoOrders;
 
+        /// <summary>
+        /// Repository EmployeeRestaurant DBbSet
+        /// </summary>
         private readonly IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> repoEmployeeRestaurant;
 
+        /// <summary>
+        /// Repository Valid token and sesion
+        /// </summary>
         private readonly IRoles repoRoles;
 
+        /// <summary>
+        /// Repository DishOrders DBbSet
+        /// </summary>
         private readonly IDishesOrdersRepository<PedidosPlatos> repoOrdersDishes;
 
+        /// <summary>
+        /// AutoMapper
+        /// </summary>
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Repository Message remoto httpclient
+        /// </summary>
+        private readonly IMessageRemotoRepository repoMessage;
+
+        /// <summary>
+        /// Repository employee DBbSet
+        /// </summary>
+        private readonly IEmployee useEmployee;
+
+        /// <summary>
+        /// Repository Get User Remoto httpCLient
+        /// </summary>
+        private readonly IUsersRemotoRepository<Usuarios, int> repoUerRemoto;
+
+        /// <summary>
+        /// User sesion
+        /// </summary>
         private Task<UsuarioClaims> getClaims;
 
-        public EmployeeService(IOrdersRepository<Pedidos, string> Orders, IRoles Roles, IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> employeeRestaurant, IDishesOrdersRepository<PedidosPlatos> repoOrdersDishes, IMapper mapper)
+
+        /// <summary>
+        /// User sesion
+        /// </summary>
+        /// <param name="employeeRestaurant">Intance Repository EmployeeRestaurant</param>
+        /// <param name="mapper">Intance Autommapper</param>
+        /// <param name="Orders">Intance Repository orders</param>
+        /// <param name="repoMessage">Intance Repository Message</param>
+        /// <param name="repoOrdersDishes">Intance Repository OrdersDishes</param>
+        /// <param name="repoUerRemoto">Intance Repository userremoto</param>
+        /// <param name="Roles">Intance Repository Roles</param>
+        /// <param name="useEmployee">Intance use case Employee</param>
+        public EmployeeService(IOrdersRepository<Pedidos, string> Orders, IRoles Roles, IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> employeeRestaurant, IDishesOrdersRepository<PedidosPlatos> repoOrdersDishes, IMapper mapper, IEmployee useEmployee, IMessageRemotoRepository repoMessage, IUsersRemotoRepository<Usuarios, int> repoUerRemoto)
         {
             this.repoOrders = Orders;
             this.repoRoles = Roles;
             this.repoEmployeeRestaurant = employeeRestaurant;
             this.getClaims = this.repoRoles.getToken();
             this.repoOrdersDishes = repoOrdersDishes;
-            this.mapper = mapper;
+            this.mapper = mapper; 
+            this.useEmployee = useEmployee;
+            this.repoMessage = repoMessage;
+            this.repoUerRemoto = repoUerRemoto;
         }
 
+        /// <summary>
+        /// Assing orders to employee
+        /// </summary>
+        /// <param name="orders">List orders to assign</param>
         public void AssignOrder(List<Guid> orders)
-        {
-            if (Enum.Parse<EnumRoles>(getClaims.Result.Rol) != EnumRoles.Empleado)
-            {
-                throw new Exception("User Not authorized");
-            }
+        { 
+            useEmployee.ValidateRol(getClaims);
             foreach (var order in orders)
             {
-                repoOrders.Update(order, int.Parse(getClaims.Result.Id));
+                repoOrders.Update(order, int.Parse(getClaims.Result.Id), (int)EnumStatus.EnPreparacion, 0);
             }            
         }
 
+        /// <summary>
+        /// to List Orders by restaurant and Status
+        /// </summary>
+        /// <param name="filter">Filter</param>
+        /// <returns>List orders</returns>
         public async Task<List<PaginacionPedidos>>ListOrders(PedidsoFiltroDTO filter)
-        {
-            int paginas = 0;           
-            if (Enum.Parse<EnumRoles>(getClaims.Result.Rol) != EnumRoles.Empleado)
-            {
-                throw new Exception("User Not authorized");
-            }
-
-            List<PaginacionPedidos> result = new List<PaginacionPedidos>();
+        {                             
             int restaurantID = repoEmployeeRestaurant.GetByID(int.Parse(getClaims.Result.Id)).RestauranteNIT;          
-            var ordersDishes = repoOrdersDishes.GetOrders(restaurantID, filter.Estado).GroupBy(p=> p.Pedido_Id);            
-            foreach (var orderDish in ordersDishes)
+            var ordersDishes = repoOrdersDishes.GetOrders(restaurantID, filter.Estado).GroupBy(p=> p.Pedido_Id);
+            return useEmployee.pageOders(ordersDishes);
+        }
+
+        /// <summary>
+        /// change order status 
+        /// </summary>
+        /// <param name="dto">Status</param>
+        public async Task StatusAsync(CambiarEstados dto)
+        {
+            Random rnd = new Random();
+            useEmployee.ValidateRol(getClaims);
+            var order = repoOrders.GetOrder(dto.PedidoId);
+            var user = await repoUerRemoto.GetUserID(int.Parse(order.Cliente_Id));
+
+            if (dto.Estado == (int)EnumStatus.Listo)
             {
-                PaginacionPedidos pagOrders = new PaginacionPedidos();
-                pagOrders.PedidoID = orderDish.Key;
-                pagOrders.PedidosPlatosDTO = new List<PedidosPlatosDTO>();
-                IEnumerable<IGrouping<Guid, PedidosPlatos>> groups = orderDish.GroupBy(x => x.Pedido_Id);
-                IEnumerable<PedidosPlatos> dishOrders = groups.SelectMany(group => group);
-                List<PedidosPlatos> listDish = new List<PedidosPlatos>();
-                listDish = dishOrders.ToList();                
-                for (int b= 0; b<=listDish.Count -1; b++ ) 
+                TWMessage message = new TWMessage()
                 {
-                    PedidosPlatosDTO pedidosPlatosDTO = new PedidosPlatosDTO(); 
-                    pedidosPlatosDTO.Cantidad = listDish[b].Cantidad;
-                    pedidosPlatosDTO.Id = listDish[b].Id;
-                    pedidosPlatosDTO.Pedidos = new PedidosDTO();
-                    pedidosPlatosDTO.Pedidos = mapper.Map<PedidosDTO>(listDish[b].Pedidos);  
-                    pedidosPlatosDTO.Platos = new PlatosDTO();
-                    pedidosPlatosDTO.Platos = mapper.Map<PlatosDTO>(listDish[b].Platos);
-                    pagOrders.PedidosPlatosDTO.Add(pedidosPlatosDTO);
+                    From = "+13614016214",
+                    To = user.Celular,
+                    Message = rnd.Next(0, 1000).ToString(),
+                };
+
+                repoOrders.Update(dto.PedidoId, int.Parse(getClaims.Result.Id), (int)EnumStatus.Listo, int.Parse(message.Message));
+                await repoMessage.SendMessageAsync(message);
+            }
+            else if (dto.Estado == (int)EnumStatus.Entregado)
+            {
+                if (order.Estado != (int)EnumStatus.Listo)
+                {
+                    throw new Exception("Invalid Status Changee");
                 }
 
-                result.Add(pagOrders);
+                if(order.Codigo != dto.Codigo)
+                {
+                    throw new Exception("Invalid Code");
+                }
+
+                repoOrders.Update(dto.PedidoId, int.Parse(getClaims.Result.Id), (int)EnumStatus.Entregado, dto.Codigo);
             }
-
-
-            return result;
-
 
         }
     }

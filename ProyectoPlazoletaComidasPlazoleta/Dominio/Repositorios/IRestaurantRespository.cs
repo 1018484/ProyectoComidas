@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Dominio.Repositorios
 {
     public interface IRestaurantRespository<Tentity, TentityID>:IAdd<Tentity>, IConfirm, IGet<Tentity, TentityID>
-    {
+    {        
         Tentity ObtenerById(int id);
     }
 }

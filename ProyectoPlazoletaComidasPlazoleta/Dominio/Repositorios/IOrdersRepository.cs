@@ -9,8 +9,8 @@ namespace Dominio.Repositorios
 {
     public interface IOrdersRepository<Tentity, TentityID> : IAdd<Tentity>, IGet<Tentity, TentityID>, IConfirm
     {
-        List<Tentity> GetOrders(int id);
+        Tentity GetOrder(Guid id);
 
-        void Update(Guid Order, int employeeID);
+        void Update(Guid Order, int employeeID, int status, int code);
     }
 }

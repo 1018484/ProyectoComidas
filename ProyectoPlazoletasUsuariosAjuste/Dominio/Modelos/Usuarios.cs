@@ -15,7 +15,8 @@ namespace Dominio.Modelos
         [Required]
         public int DocumentoId { get; set; }
 
-        [Required]
+        [Required]      
+        
         public string Nombre { get; set; }
 
         [Required]
@@ -34,7 +35,6 @@ namespace Dominio.Modelos
         [Required]
         public string Clave { get; set; }
 
-        [Required]
         [ForeignKey("Roles")]
         public int RolesRolId { get; set; }
 
