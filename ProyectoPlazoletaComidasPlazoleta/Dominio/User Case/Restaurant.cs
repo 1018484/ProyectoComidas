@@ -1,7 +1,9 @@
-﻿using Dominio.DTO;
+﻿using Aplicacion.Validaciones;
+using Dominio.DTO;
 using Dominio.Modelos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,7 +56,20 @@ namespace Dominio.User_Case
         /// <param name="rest">user</param>
         public void ValidateModel(Restaurantes rest)
         {
-            throw new NotImplementedException();
+            Validation val = new Validation();
+            string errorModel = val.PhoneValidation(rest.Telefono) + val.NumValidation(rest.Nombre);
+            var context = new ValidationContext(rest, null, null);
+            var results = new List<ValidationResult>();
+            var isValid = Validator.TryValidateObject(rest, context, results, true);
+            if (!isValid || !string.IsNullOrEmpty(errorModel))
+            {
+                foreach (var validationResult in results)
+                {
+                    errorModel = errorModel + "; " + validationResult.ErrorMessage;
+                }
+
+                throw new Exception($"Validation error: {errorModel}");
+            }
         }
 
 

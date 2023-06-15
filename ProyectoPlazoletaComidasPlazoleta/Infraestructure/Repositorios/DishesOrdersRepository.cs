@@ -13,7 +13,7 @@ namespace Infraestructure.Repositorios
     /// <summary>
     /// DishesOrder Repository DbSets   
     /// </summary>   
-    public class DishesOrdersRepository : IDishesOrdersRepository<PedidosPlatos>
+    public class DishesOrdersRepository : IDishesOrdersRepository<PedidosPlatos, Guid>
     {
         /// <summary>
         /// DbContext
@@ -46,6 +46,13 @@ namespace Infraestructure.Repositorios
         public void Confirm()
         {
            db_context.SaveChanges();
+        }
+
+        public void Delete(Guid id)
+        {
+            
+            var orderDish = db_context.PedidosPlatos.Where(p=> p.Pedido_Id ==id).Include(p => p.Pedidos).First();
+            db_context.Remove(orderDish);
         }
 
         /// <summary>

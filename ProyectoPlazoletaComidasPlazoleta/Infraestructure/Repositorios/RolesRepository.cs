@@ -56,7 +56,7 @@ namespace Infraestructure.Repositorios
                 var Token = await httpContext.HttpContext.GetTokenAsync(JwtBearerDefaults.AuthenticationScheme, "access_token");
                 if (string.IsNullOrEmpty(Token))
                 {
-                    return null;
+                    throw new Exception("token or session not started");
                 }
 
                 var httpClient = _cliente.CreateClient("Usuarios");
@@ -66,7 +66,7 @@ namespace Infraestructure.Repositorios
                     var contenido = await result.Content.ReadAsStringAsync();
                     if (string.IsNullOrEmpty(contenido))
                     {
-                        return null;
+                        throw new Exception("token or session not started");
                     }
                     var options = new JsonSerializerOptions()
                     {
@@ -77,12 +77,12 @@ namespace Infraestructure.Repositorios
                     return resultado;
                 }
 
-                return null;
+                throw new Exception("token or session not started");
 
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
            
         }

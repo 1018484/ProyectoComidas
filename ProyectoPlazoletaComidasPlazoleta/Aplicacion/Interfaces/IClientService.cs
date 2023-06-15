@@ -15,6 +15,7 @@ namespace Aplicacion.Interfaces
         List<PaginacionPlatosDTO> ListDishes(int paginacion);
 
         Task AddOrders(SendOrder pedido);
-        
+
+        void CancelOrder(Guid orderID);       
     }
 }

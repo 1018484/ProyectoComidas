@@ -3,6 +3,7 @@ using Dominio.DTO;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoPlazoletaComidasPlazoleta.Migrations;
 
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ProyectoPlazoletaComidasPlazoleta.Controllers
@@ -34,12 +35,20 @@ namespace ProyectoPlazoletaComidasPlazoleta.Controllers
         /// <param name="filter">Filter</param> 
         /// <returns>Orders</returns>
         [HttpGet]
-        [Route("ListarPedidos/{Paginacion}")]
-        public async Task<List<PaginacionPedidos>> ListarPedidosAsync([FromBody] PedidsoFiltroDTO filter)
-        {            
-            var resultado = await _employeeService.ListOrders(filter);
-            return resultado;         
-            
+        [Route("ListarPedidos")]
+        public async Task<ActionResult<List<PaginacionPedidos>>> ListarPedidosAsync([FromBody] PedidsoFiltroDTO filter)
+        {
+            try
+            {
+                var resultado = await _employeeService.ListOrders(filter);
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+               return BadRequest(ex.Message);
+            }
+           
+                                     
         }
 
         /// <summary>
@@ -49,8 +58,17 @@ namespace ProyectoPlazoletaComidasPlazoleta.Controllers
         [HttpPut]
         public  IActionResult AsignedOrder(List<Guid> Orders)
         {
-            _employeeService.AssignOrder(Orders);
-            return Ok("");
+            try
+            {
+                _employeeService.AssignOrder(Orders);
+                return Ok("");
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -61,8 +79,16 @@ namespace ProyectoPlazoletaComidasPlazoleta.Controllers
         [Route("CambiarEstado")]
         public async Task<IActionResult> CambiarEstado([FromBody] CambiarEstados dto)
         {
-            await _employeeService.StatusAsync(dto);
-            return Ok("");
+            try
+            {
+                await _employeeService.StatusAsync(dto);
+                return Ok("");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

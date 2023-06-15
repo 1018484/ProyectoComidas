@@ -50,7 +50,7 @@ builder.Services.AddScoped<IUsersRemotoRepository<Usuarios, int>, UserRemotoRepo
 builder.Services.AddSingleton<IRoles, RolesRepository>();
 builder.Services.AddScoped<IDishesRepository<Platos, string, int>, DishesRepository>();
 builder.Services.AddScoped<IOrdersRepository<Pedidos, string>, OrdersRepository>();
-builder.Services.AddScoped<IDishesOrdersRepository<PedidosPlatos>, DishesOrdersRepository>();
+builder.Services.AddScoped<IDishesOrdersRepository<PedidosPlatos, Guid>, DishesOrdersRepository>();
 builder.Services.AddScoped<IEmployeeRestaurantRepository<EmpleadosRestaurantes, int>, EmployeeRestaurantsRepository>();
 builder.Services.AddScoped<IMessageRemotoRepository, MessageRemotoRepository>();
 builder.Services.AddScoped<IEmployee, Employee>();

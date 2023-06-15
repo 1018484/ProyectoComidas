@@ -15,22 +15,45 @@ namespace Aplicacion.Servicios
 {
     public class ClientService : IClientService
     {
+        /// <summary>
+        /// Repository Restaurant DbSet
+        /// </summary>
         private readonly IRestaurantRespository<Restaurantes, int> repoRestaurant;
 
-        private readonly IDishesRepository<Platos, string, int> repoPDishes ;
+        /// <summary>
+        /// Dishes Restaurant DbSet
+        /// </summary>
+        private readonly IDishesRepository<Platos, string, int> repoPDishes;
 
+        /// <summary>
+        /// Repository Orders DBbSet
+        /// </summary>
         private readonly IOrdersRepository<Pedidos, string> repoOrders ;
 
+        /// <summary>
+        /// Repository Valid token and sesion
+        /// </summary>
         private readonly IRoles repoRoles;
 
-        private readonly IDishesOrdersRepository<PedidosPlatos> repoOrdersDishes;
+        /// <summary>
+        /// Repository DishOrders DBbSet
+        /// </summary>
+        private readonly IDishesOrdersRepository<PedidosPlatos, Guid> repoOrdersDishes;
 
+        /// <summary>
+        /// Use Case Clients
+        /// </summary>
         private readonly IClients useClients;
 
+        /// <summary>
+        /// User sesion
+        /// </summary
         private Task<UsuarioClaims> getClaims;
 
-
-        public ClientService(IRestaurantRespository<Restaurantes, int> rest, IDishesRepository<Platos, string, int> dish, IOrdersRepository<Pedidos, string> orders, IRoles roles, IDishesOrdersRepository<PedidosPlatos> orderDish, IClients useClients)
+        /// <summary>
+        /// User sesion
+        /// </summary
+        public ClientService(IRestaurantRespository<Restaurantes, int> rest, IDishesRepository<Platos, string, int> dish, IOrdersRepository<Pedidos, string> orders, IRoles roles, IDishesOrdersRepository<PedidosPlatos, Guid> orderDish, IClients useClients)
         {
             this.repoRestaurant = rest;
             this.repoPDishes = dish;
@@ -40,10 +63,11 @@ namespace Aplicacion.Servicios
             this.getClaims = this.repoRoles.getToken();
             this.useClients = useClients;
         }
+
         /// <summary>
-        /// This property always returns a value &lt; 1.
+        /// Add Order.
         /// </summary>
-        /// <param name="SendOrder">description</param>
+        /// <param name="entityDTO">description</param>
         public async Task AddOrders(SendOrder entityDTO)
         {
             useClients.ValidateRol(getClaims);
@@ -57,20 +81,30 @@ namespace Aplicacion.Servicios
             order.RestaurantesNIT_Id = entityDTO.RestauranteNIT;
             this.repoOrders.Add(order);
             this.repoOrders.Confirm();
-            AgendarPlatos(order.Pedido_Id, entityDTO.platos);
+            AddDishesDescription(order.Pedido_Id, entityDTO.platos);
         }
 
+        /// <summary>
+        /// List to Dishes by restaurant
+        /// </summary>
+        /// <param name="pag">data for page</param>
+        /// <returns>List Dishes </returns>
         public List<PaginacionPlatosDTO> ListDishes(int pag)
         {
-            int page = 0;
-            List<PaginacionPlatosDTO> result = new List<PaginacionPlatosDTO>();            
+            useClients.ValidateRol(getClaims);
             var RestaurantGroup = repoPDishes.GetAll().GroupBy(x => x.RestaurantesNIT_Id);
             return useClients.ListDishes(pag, RestaurantGroup);
            
         }
 
+        /// <summary>
+        /// List to restaurants
+        /// </summary>
+        /// <param name="pag">data for page</param>
+        /// <returns>List restaurants </returns>
         public List<PaginacionRestaurantesDTO> ListRestaurants(int pag)
-        {            
+        {
+            useClients.ValidateRol(getClaims);
             var restaurant = repoRestaurant.GetAll().Select(x=> new RestaurantesfiltradosDTO()
             {
                 Nombre = x.Nombre,
@@ -80,8 +114,13 @@ namespace Aplicacion.Servicios
             return useClients.ListRestaurants(pag, restaurant);
            
         }
-        
-        public void AgendarPlatos(Guid id, List<PlatosPedidosDTO> dishes)
+
+        /// <summary>
+        /// Add dishes description
+        /// </summary>
+        /// <param name="id">data for page</param>
+        /// <param name="dishes">List dishes</param>        
+        public void AddDishesDescription(Guid id, List<PlatosPedidosDTO> dishes)
         {
             foreach (var dish in dishes)
             {
@@ -95,6 +134,14 @@ namespace Aplicacion.Servicios
                 repoOrdersDishes.Add(pedidosPlatos);
                 repoOrdersDishes.Confirm();
             }
+        }
+
+        public void CancelOrder(Guid orderID)
+        {
+            //useClients.ValidateRol(getClaims);
+            repoOrdersDishes.Delete(orderID);
+            repoOrdersDishes.Confirm();
+
         }
     }
 }

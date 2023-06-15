@@ -25,36 +25,46 @@ namespace Aplicacion.Validaciones
             }
         }
 
-        public bool PhoneValidation(string telefono)
+        public string PhoneValidation(string phone)
         {
-            string Numero = telefono;
-            if (telefono[0] == '+')
+            if (string.IsNullOrEmpty(phone))
             {
-                Numero = telefono.Substring(3, telefono.Length - 3);                
+                return string.Empty;
+            }
+
+            string Numero = phone;
+            if (phone[0] == '+')
+            {
+                Numero = phone.Substring(3, phone.Length - 3);                
             }
 
             if (Numero.Length > 13)
             {
-                throw new Exception("Invalid Phone");
+                return "Invalid Phone";
             }
 
             if (Regex.IsMatch(Numero, @"^\d+$"))
             {
-                return true;
+                return string.Empty;
             }
 
-            throw new Exception("Invalid Phone");
+            return "Invalid Phone";
         }
 
-        public bool NumValidation(string dato)
+        public string NumValidation(string dato)
         {
+            if (string.IsNullOrEmpty(dato))
+            {
+                return string.Empty;
+            }
+
             bool result = false;
             if (Regex.IsMatch(dato, @"^\d+$"))
             {
-                throw new Exception("Invalid Restaurant Name");
+                return "Invalid Restaurant Name";
             }
 
-            return result;
+            return string.Empty;
         }       
         
     }

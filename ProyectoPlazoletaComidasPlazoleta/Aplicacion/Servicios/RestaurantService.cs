@@ -89,8 +89,7 @@ namespace Applicacion.Repositorio
         {            
             useRestaurant.ValidateRol(getClaims);
             Restaurantes restaurant = mapper.Map<Restaurantes>(entityDTO);
-            Validation.PhoneValidation(restaurant.Telefono);
-            Validation.NumValidation(restaurant.Nombre);    
+            useRestaurant.ValidateModel(restaurant);             
             var usuario = await repoUerRemoto.GetUserID(restaurant.DocumentoId);
             useRestaurant.ValidateUser(usuario);           
             var result = repoRestaurant.Add(restaurant);

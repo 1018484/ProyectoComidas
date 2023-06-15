@@ -35,9 +35,17 @@ namespace Plazoleta.Controllers
         /// <param name="rest">RestaurantDto</param> 
         [HttpPost]
         public async Task<IActionResult> CrearRestauranteAsync([FromBody] RestaurantesDTO rest)
-        {                                    
-            await _restarurantService.AddRestaurant(rest);
-            return Ok();
+        {
+            try
+            {
+                await _restarurantService.AddRestaurant(rest);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -47,8 +55,15 @@ namespace Plazoleta.Controllers
         [HttpPost("{EmpleadoId}")]
         public async Task<IActionResult> CrearEmpleadoRestauranteAsync(int EmployeeId)
         {
-            await _restarurantService.AddEmployeeRestaurant(EmployeeId);
-            return Ok();
+            try
+            {
+                await _restarurantService.AddEmployeeRestaurant(EmployeeId);
+                return Ok();
+            }catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

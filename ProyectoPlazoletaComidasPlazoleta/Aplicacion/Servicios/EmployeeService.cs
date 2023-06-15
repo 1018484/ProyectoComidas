@@ -35,7 +35,7 @@ namespace Aplicacion.Servicios
         /// <summary>
         /// Repository DishOrders DBbSet
         /// </summary>
-        private readonly IDishesOrdersRepository<PedidosPlatos> repoOrdersDishes;
+        private readonly IDishesOrdersRepository<PedidosPlatos, Guid> repoOrdersDishes;
 
         /// <summary>
         /// AutoMapper
@@ -74,7 +74,7 @@ namespace Aplicacion.Servicios
         /// <param name="repoUerRemoto">Intance Repository userremoto</param>
         /// <param name="Roles">Intance Repository Roles</param>
         /// <param name="useEmployee">Intance use case Employee</param>
-        public EmployeeService(IOrdersRepository<Pedidos, string> Orders, IRoles Roles, IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> employeeRestaurant, IDishesOrdersRepository<PedidosPlatos> repoOrdersDishes, IMapper mapper, IEmployee useEmployee, IMessageRemotoRepository repoMessage, IUsersRemotoRepository<Usuarios, int> repoUerRemoto)
+        public EmployeeService(IOrdersRepository<Pedidos, string> Orders, IRoles Roles, IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> employeeRestaurant, IDishesOrdersRepository<PedidosPlatos, Guid> repoOrdersDishes, IMapper mapper, IEmployee useEmployee, IMessageRemotoRepository repoMessage, IUsersRemotoRepository<Usuarios, int> repoUerRemoto)
         {
             this.repoOrders = Orders;
             this.repoRoles = Roles;

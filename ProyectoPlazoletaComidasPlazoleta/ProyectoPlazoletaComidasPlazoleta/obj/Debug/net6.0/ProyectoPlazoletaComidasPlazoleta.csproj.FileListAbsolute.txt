@@ -74,3 +74,6 @@ C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasP
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

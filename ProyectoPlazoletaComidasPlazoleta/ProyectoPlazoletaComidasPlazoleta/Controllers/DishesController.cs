@@ -17,32 +17,63 @@ using Dominio.DTO;
 
 namespace PlazoletaComidas.Controllers
 {
+    /// <summary>
+    /// Dish Controller
+    /// </summary> 
     [Route("api/[controller]")]
     [ApiController]
-    public class DishesController : ControllerBase
+    public class DishesController : ControllerBase   
     {
-        private readonly string secretkey;
-
+        /// <summary>
+        /// Dish service
+        /// </summary>
         private readonly IDishesService _dishService;
 
-        public DishesController(IConfiguration config, IDishesService dishService) 
-        {
-            secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();            
+        /// <summary>
+        /// initialize Controller
+        /// </summary>       
+        /// <param name="dishService">Dish Service</param>      
+        public DishesController(IDishesService dishService) 
+        {                       
             _dishService = dishService;
-        } 
-
-        [HttpPost]
-        public async Task<IActionResult> CrearPlatoAsync([FromBody] PlatosDTO dish)
-        {                    
-            await _dishService.AddDish(dish);
-            return Ok();                      
         }
 
+        /// <summary>
+        /// Add Dish
+        /// </summary>       
+        /// <param name="dish">DishSTO</param>     
+        [HttpPost]
+        public async Task<IActionResult> CrearPlatoAsync([FromBody] PlatosDTO dish)
+        {
+            try
+            {
+                await _dishService.AddDish(dish);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+                                
+        }
+
+        /// <summary>
+        /// Edit Dish
+        /// </summary>       
+        /// <param name="dish">DishSTO</param> 
         [HttpPut]
         public async Task<IActionResult> EditarPlatoAsync([FromBody] PlatosDTO dish)
-        {                              
-            await _dishService.EditDish(dish);
-            return Ok("");  
+        {
+            try
+            {
+                await _dishService.EditDish(dish);
+                return Ok("");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }        
     }
 }

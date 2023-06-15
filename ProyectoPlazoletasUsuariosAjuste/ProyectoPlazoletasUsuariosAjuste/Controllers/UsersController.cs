@@ -49,9 +49,16 @@ namespace PlazoletaComidas.Controllers
         [Route("Propietario")]
         [Authorize(Roles = "1")]
         public IActionResult CreateOwner([FromBody] UsuarioDTO userDTO)
-        {           
-            _userService.AddOwner(userDTO);
-            return Ok("");           
+        {
+            try
+            {
+                _userService.AddOwner(userDTO);
+                return Ok("");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -62,9 +69,16 @@ namespace PlazoletaComidas.Controllers
         [Route("Empleados")]
         [Authorize(Roles = "2")]
         public IActionResult CreateEmployee([FromBody] UsuarioDTO userDTO)
-        {            
-             _userService.AddEmployee(userDTO);
-            return Ok("");           
+        {
+            try
+            {
+                _userService.AddEmployee(userDTO);
+                return Ok("");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -74,9 +88,16 @@ namespace PlazoletaComidas.Controllers
         [HttpPost]
         [Route("Cliente")]
         public IActionResult CreateClient([FromBody] UsuarioDTO userDTO)
-        {           
-            _userService.AddUser(userDTO);
-            return Ok("");            
+        {
+            try
+            {
+                _userService.AddUser(userDTO);
+                return Ok("");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
             
         }
     }

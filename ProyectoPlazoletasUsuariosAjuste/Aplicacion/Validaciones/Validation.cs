@@ -24,6 +24,11 @@ namespace Aplicacion.Validaciones
         /// <returns>Bool Valid phone</returns>
         public string PhoneValidation(string phone)
         {
+            if (string.IsNullOrEmpty(phone))
+            {
+                return string.Empty;
+            }
+
             string Numero = phone;
             if (phone[0] == '+')
             {
@@ -54,11 +59,11 @@ namespace Aplicacion.Validaciones
             var context = new ValidationContext(user, null, null);
             var results = new List<ValidationResult>();
             var isValid = Validator.TryValidateObject(user, context, results, true);
-            if (!isValid)
+            if (!isValid || !string.IsNullOrEmpty(errorModel))
             {
                 foreach (var validationResult in results)
                 {
-                    errorModel += validationResult.ErrorMessage;                    
+                    errorModel= errorModel +"; "+validationResult.ErrorMessage;                    
                 }
 
                 throw new Exception($"Validation error: {errorModel}");

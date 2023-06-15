@@ -17,37 +17,100 @@ using System.Text;
 
 namespace ProyectoPlazoletaComidasPlazoleta.Controllers
 {
+    /// <summary>
+    /// Dish Controller
+    /// </summary> 
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
-    {       
-        private readonly IClientService _clientService;       
+    {
+        /// <summary>
+        /// client service
+        /// </summary>
+        private readonly IClientService _clientService;
 
+        /// <summary>
+        /// initialize Controller
+        /// </summary>       
+        /// <param name="clientService">Client Service</param> 
         public ClientController(IClientService clientService)
         {            
             _clientService = clientService;            
         }
 
+        /// <summary>
+        /// list restaurant
+        /// </summary>       
+        /// <param name="pag">data for page</param> 
+        /// <returns>list Restaurants</returns>
         [HttpGet]
-        [Route("ListarRestaurantes/{Paginacion}")]
-        public ActionResult<List<PaginacionRestaurantesDTO>> ListarRestaurantes(int Paginacion)
-        {            
-            return _clientService.ListRestaurants(Paginacion);
+        [Route("ListarRestaurantes/{pag}")]
+        public ActionResult<List<PaginacionRestaurantesDTO>> ListarRestaurantes(int pag)
+        {
+            try
+            {
+                return _clientService.ListRestaurants(pag);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }       
+            
         }
 
+        /// <summary>
+        /// list Dishes
+        /// </summary>       
+        /// <param name="pag">data for page</param> 
+        /// <returns>list Dishes</returns>
         [HttpGet]
-        [Route("ListarPlatos/{Paginacion}")]
-        public ActionResult<List<PaginacionPlatosDTO>> ListarPlatos(int Paginacion)
-        {                        
-            return _clientService.ListDishes(Paginacion);
+        [Route("ListarPlatos/{pag}")]
+        public ActionResult<List<PaginacionPlatosDTO>> ListarPlatos(int pag)
+        {
+            try
+            {
+                return _clientService.ListDishes(pag);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
+        /// <summary>
+        /// Add Order
+        /// </summary>       
+        /// <param name="order">List Dishes</param> 
+        /// <returns>list Dishes</returns>
         [HttpPost]
-        public async Task<IActionResult> PedidosAsync([FromBody] SendOrder pedido)
-        {            
-            await _clientService.AddOrders(pedido);
-            return Ok();
+        public async Task<IActionResult> PedidosAsync([FromBody] SendOrder order)
+        {
+            try
+            {
+                await _clientService.AddOrders(order);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
+        [HttpDelete]
+        public IActionResult CancelOrder(Guid id)
+        {
+            try
+            {
+                _clientService.CancelOrder(id);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);  
+            }
+        }
+
+
 
     }
 }
