@@ -12,9 +12,10 @@ namespace Dominio.Modelos
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
+        
         public int NIT_Id { get; set; }
 
-        [Required]
+        [Required]        
         public string Nombre { get; set; }
 
         [Required]
@@ -31,6 +32,8 @@ namespace Dominio.Modelos
         
 
         public List<Platos> platos { get; set; }       
+
+        public List<Pedidos> pedidos { get; set; }
         
 
     }

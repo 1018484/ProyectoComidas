@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "VS3S7DoG6amVMZmpOg4JWeDD8cA37qK/wy6CT/WyFOKP9BwSQ8wuBeQV4x0dm3frrtTW65bhkqyGw70h++HNvg==",
+  "dgSpecHash": "OgxaBPuZXUXAtWYe/R7VKnqSojduMNooKf492DuJQWJrENc4P5jUeGuPlEpxoS5HM9pTWWnOIhqgnSMfj0gi4A==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidas\\Dominio\\Dominio.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

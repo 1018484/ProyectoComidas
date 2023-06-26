@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Dominio.Modelos
 {
     public class Platos
-    {
+    {     
+
         [Key]
         public int Id { get; set; }
 
@@ -34,6 +35,8 @@ namespace Dominio.Modelos
         [Required]
         [ForeignKey("Restaurantes")]
         public int RestaurantesNIT_Id { get; set; }
+
+        public List<PedidosPlatos> PedidosPlatos { get; set; }
 
     }
 }

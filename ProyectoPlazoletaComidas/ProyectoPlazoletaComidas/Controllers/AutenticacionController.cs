@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Infraestructure.Repositorios;
+using Newtonsoft.Json;
+using Dominio.Repositorios;
 
 namespace PlazoletaComidas.Controllers
 {
@@ -24,44 +27,28 @@ namespace PlazoletaComidas.Controllers
     [ApiController]
     public class AutenticacionController : ControllerBase
     {
+        private readonly IUserService _usuarioServicio;       
+
         private readonly string secretkey;
 
-        public AutenticacionController(IConfiguration config)
+        public AutenticacionController(IConfiguration config, IUserService usuarioServicio)        
         {
             secretkey = config.GetSection("Settings").GetSection("SecretKey").ToString();
-        }
-
-        UsuariosServicio CrearUsuarios()
-        {
-            Db_Context db = new Db_Context();
-            UsuariosRepository usuariosRepository = new UsuariosRepository(db);
-            UsuariosServicio usuariosServicio = new UsuariosServicio(usuariosRepository);
-            return usuariosServicio;
-        }
-
+            _usuarioServicio = usuarioServicio;            
+        }       
 
         [HttpPost]
-        [Route("InicioSesion")]
-        public IActionResult InicioSesion([FromBody] UsuarioDTO usuario)
-        {
-            var _service = CrearUsuarios();
-            var _usuarios = _service.ObtenerTodos();
-            var _usuario = _usuarios.Where(u => u.Correo == usuario.Correo).FirstOrDefault();
+        [Route("StartSesion")]
+        public IActionResult StartSesion([FromBody] UserLogin usuario)
+        {            
+            var _usuario = _usuarioServicio.PasswordValidation(usuario);
             if (_usuario != null)
             {
-                if (!BCrypt.Net.BCrypt.Verify(usuario.Contraseña, _usuario.Clave))
-                {
-                    return StatusCode(StatusCodes.Status401Unauthorized, new
-                    {
-                        token = ""
-                    });
-                }
-
                 var KeyBytes = Encoding.ASCII.GetBytes(secretkey);
                 var claims = new ClaimsIdentity();
-                claims.AddClaim(new Claim("ID", _usuario.DocumentoId.ToString()));
-                claims.AddClaim(new Claim("Correo", _usuario.Correo.ToString()));
-                claims.AddClaim(new Claim("Rol", _usuario.RolesRolId.ToString()));
+                claims.AddClaim(new Claim("ID", _usuario.DocumenId.ToString()));
+                claims.AddClaim(new Claim("Correo", _usuario.Email.ToString()));
+                claims.AddClaim(new Claim(ClaimTypes.Role, _usuario.RolsRolId.ToString()));
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = claims,
@@ -77,12 +64,42 @@ namespace PlazoletaComidas.Controllers
             }
             else
             {
-                return StatusCode(StatusCodes.Status401Unauthorized, new
-                {
-                    token = ""
-                });
+                return StatusCode(StatusCodes.Status401Unauthorized);
             }
         }
 
+
+        [HttpGet("{token}")]        
+        public ActionResult<UserClaims> TokenAuthentication(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(secretkey);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                UserClaims claims = new UserClaims()
+                {
+                    Rol = jwtToken.Claims.First(x => x.Type == "role").Value,
+                    Id = jwtToken.Claims.First(x => x.Type == "ID").Value,
+                    Email = jwtToken.Claims.First(x => x.Type == "Correo").Value
+                };
+
+                return claims;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
+
 }
