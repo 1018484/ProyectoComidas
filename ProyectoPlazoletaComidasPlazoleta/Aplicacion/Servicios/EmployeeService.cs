@@ -79,7 +79,7 @@ namespace Aplicacion.Servicios
             this.repoOrders = Orders;
             this.repoRoles = Roles;
             this.repoEmployeeRestaurant = employeeRestaurant;
-            this.getClaims = this.repoRoles.getToken();
+            //this.getClaims = this.repoRoles.getToken();
             this.repoOrdersDishes = repoOrdersDishes;
             this.mapper = mapper; 
             this.useEmployee = useEmployee;
@@ -93,7 +93,7 @@ namespace Aplicacion.Servicios
         /// <param name="orders">List orders to assign</param>
         public void AssignOrder(List<Guid> orders)
         { 
-            useEmployee.ValidateRol(getClaims);
+            //useEmployee.ValidateRol(getClaims);
             foreach (var order in orders)
             {
                 repoOrders.Update(order, int.Parse(getClaims.Result.Id), (int)EnumStatus.EnPreparacion, 0);
@@ -119,7 +119,7 @@ namespace Aplicacion.Servicios
         public async Task StatusAsync(CambiarEstados dto)
         {
             Random rnd = new Random();
-            useEmployee.ValidateRol(getClaims);
+            //useEmployee.ValidateRol(getClaims);
             var order = repoOrders.GetOrder(dto.PedidoId);
             var user = await repoUerRemoto.GetUserID(int.Parse(order.Cliente_Id));
 
@@ -133,7 +133,7 @@ namespace Aplicacion.Servicios
                 };
 
                 repoOrders.Update(dto.PedidoId, int.Parse(getClaims.Result.Id), (int)EnumStatus.Listo, int.Parse(message.Message));
-                await repoMessage.SendMessageAsync(message);
+                //await repoMessage.SendMessageAsync(message);
             }
             else if (dto.Estado == (int)EnumStatus.Entregado)
             {

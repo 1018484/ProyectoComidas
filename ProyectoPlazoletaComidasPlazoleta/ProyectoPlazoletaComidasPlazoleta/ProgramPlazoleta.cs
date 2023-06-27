@@ -14,11 +14,26 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Dominio.User_Case;
+using Amazon.SimpleSystemsManagement;
+using Amazon.Runtime;
+using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL"), b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
+var credentials = new BasicAWSCredentials("AKIAXJTU5J45DOYZV73B", "q93YE9VcKea3ybXc2sTiyIiYI2+B7LFuDAIOZTK5");
+var client = new AmazonSimpleSystemsManagementClient(credentials, Amazon.RegionEndpoint.USEast1);
+var request = new GetParameterRequest()
+{
+    Name = "DataBase"
+};
+
+var value = await client.GetParameterAsync(request);
+string connectionString = value.Parameter.Value.ToString();   
+builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
 builder.Configuration.AddJsonFile("appsettings.json");
-var secretKey = builder.Configuration.GetSection("Settings").GetSection("SecretKey").ToString();
+request.Name = "SecretKey";
+value = await client.GetParameterAsync(request);
+var secretKey = value.Parameter.Value.ToString();  
+    //builder.Configuration.GetSection("Settings").GetSection("SecretKey").ToString();
 var KeyBytes = Encoding.UTF8.GetBytes(secretKey);
 builder.Services.AddAuthentication(config =>
 {
@@ -39,12 +54,18 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
+request.Name = "userService";
+value = await client.GetParameterAsync(request);
+var userService = value.Parameter.Value.ToString();
+request.Name = "messageService";
+value = await client.GetParameterAsync(request);
+var messageService = value.Parameter.Value.ToString();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Usuarios",
-    client => client.BaseAddress = new Uri("https://localhost:7191"));
+    client => client.BaseAddress = new Uri(userService));
 builder.Services.AddHttpClient("Mensageria",
-    client => client.BaseAddress = new Uri("https://localhost:7218"));
+    client => client.BaseAddress = new Uri(messageService));
 builder.Services.AddScoped<IRestaurantRespository<Restaurantes, int>, RestaurantRepository>();
 builder.Services.AddScoped<IUsersRemotoRepository<Usuarios, int>, UserRemotoRepository>();
 builder.Services.AddSingleton<IRoles, RolesRepository>();

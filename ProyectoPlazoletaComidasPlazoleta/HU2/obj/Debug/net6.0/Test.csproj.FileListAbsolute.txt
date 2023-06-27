@@ -445,3 +445,8 @@ C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasP
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\obj\Debug\net6.0\ref\Test.dll
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\AWSSDK.Core.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Debug\net6.0\AWSSDK.SimpleSystemsManagement.dll

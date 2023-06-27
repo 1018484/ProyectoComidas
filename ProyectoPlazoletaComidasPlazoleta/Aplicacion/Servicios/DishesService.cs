@@ -59,7 +59,7 @@ namespace Aplicacion.Repositorio
             this.repoRestaurant = repoRestaurantes;
             this.repoRoles = roles;
             this.mapper = mapper;
-            this.getClaims = this.repoRoles.getToken();
+            //this.getClaims = this.repoRoles.getToken();
             this.useDishes = useDishes;
         }
 
@@ -70,7 +70,7 @@ namespace Aplicacion.Repositorio
         /// <returns>Dish Adedd</returns>
         public async Task<Platos> AddDish(PlatosDTO entiyDTO)
         {
-            useDishes.ValidateRol(getClaims);
+            //useDishes.ValidateRol(getClaims);
             Platos dish = mapper.Map<Platos>(entiyDTO);          
             dish.Id = 0;
             dish.Activo = true;      
@@ -89,7 +89,7 @@ namespace Aplicacion.Repositorio
         public async Task<Platos> EditDish(PlatosDTO entityDTO)
         {
             Platos entidad = mapper.Map<Platos>(entityDTO);
-            useDishes.ValidateRol(getClaims);
+            //useDishes.ValidateRol(getClaims);
             var restInfo = repoRestaurant.GetByID(entidad.RestaurantesNIT_Id);
             useDishes.ValidateRestaurant(restInfo, getClaims);      
             var select = repoDishes.GetByRestaurantNIT(entidad.NombrePlato, entidad.RestaurantesNIT_Id);

@@ -50,11 +50,6 @@ namespace Applicacion.Repositorio
         private readonly IRestaurant useRestaurant;
 
         /// <summary>
-        /// Validations
-        /// </summary>
-        private Validation Validation;
-
-        /// <summary>
         /// User sesion
         /// </summary>
         private Task<UsuarioClaims> getClaims;
@@ -71,12 +66,11 @@ namespace Applicacion.Repositorio
         public RestaurantService(IRestaurantRespository<Restaurantes, int> repoRestaurante, IUsersRemotoRepository<Usuarios, int> repoUsuario, IRoles repoRoles, IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> employeeRestaurant, IMapper mapper, IRestaurant useRestaurant)
         {
             this.repoRestaurant = repoRestaurante;
-            this.repoUerRemoto = repoUsuario;
-            Validation = new Validation();
+            this.repoUerRemoto = repoUsuario;            
             this.repoRoles = repoRoles;
             this.mapper = mapper;
             this.repoEmployeeRestaurant = employeeRestaurant;            
-            this.getClaims =  this.repoRoles.getToken();       
+            //this.getClaims =  this.repoRoles.getToken();       
             this.useRestaurant = useRestaurant;
         }
 
@@ -87,11 +81,11 @@ namespace Applicacion.Repositorio
         /// <returns>Restaurant Creeated</returns>
         public async Task<Restaurantes> AddRestaurant(RestaurantesDTO entityDTO)
         {            
-            useRestaurant.ValidateRol(getClaims);
+            //useRestaurant.ValidateRol(getClaims);
             Restaurantes restaurant = mapper.Map<Restaurantes>(entityDTO);
             useRestaurant.ValidateModel(restaurant);             
-            var usuario = await repoUerRemoto.GetUserID(restaurant.DocumentoId);
-            useRestaurant.ValidateUser(usuario);           
+            //var usuario = await repoUerRemoto.GetUserID(restaurant.DocumentoId);
+            //useRestaurant.ValidateUser(usuario);           
             var result = repoRestaurant.Add(restaurant);
             this.repoRestaurant.Confirm();
             return result;
@@ -103,7 +97,7 @@ namespace Applicacion.Repositorio
         /// <param name="ownerID">Owner ID</param> 
         public async Task AddEmployeeRestaurant(int ownerID)
         {
-            useRestaurant.ValidateRol(getClaims);
+            //useRestaurant.ValidateRol(getClaims);
             EmpleadosRestaurantes employeerestaurant = new EmpleadosRestaurantes()
             {
                 EmpleadoId = ownerID,

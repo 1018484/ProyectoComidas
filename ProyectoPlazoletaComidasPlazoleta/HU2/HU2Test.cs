@@ -92,8 +92,8 @@ namespace HU2
                 Usuarios usuarios = data.Users();
                 var config = new MapperConfiguration(opts => opts.AddMaps(new[]
                 {
-                typeof(Mapp),
-                }));
+            typeof(Mapp),
+            }));
 
                 mapper = config.CreateMapper();
                 usuarios = null;
@@ -106,13 +106,13 @@ namespace HU2
                 useCase.ValidateModel(rest);
                 useCase.ValidateUser(usuarios);
                 RestaurantService servicio = new RestaurantService(repoRestaurant.Object, repoUsers.Object, Roles.Object, repoEmpleadoRestaurant.Object, mapper, useRestaurant.Object);
-                var result = servicio.AddRestaurant(restDTO);
-
+                var ex = Assert.Throws<SystemException>(() => useCase.ValidateUser(usuarios));
             }
             catch (Exception ex)
             {
-                Assert.Contains("You are trying to add a restaurant to an unregistered User", ex.Message);
+                Assert.Contains("You are trying to add a restaurant to an unregistered User", ex.Message.ToString());
             }
+
         }
 
         [Fact]
@@ -126,8 +126,8 @@ namespace HU2
                 Usuarios usuarios = data.Users();
                 var config = new MapperConfiguration(opts => opts.AddMaps(new[]
                 {
-                typeof(Mapp),
-                }));
+            typeof(Mapp),
+            }));
 
                 rest.Telefono = "312312asd";
                 mapper = config.CreateMapper();
@@ -138,45 +138,37 @@ namespace HU2
                 useCase.ValidateModel(rest);
                 useCase.ValidateUser(usuarios);
                 RestaurantService servicio = new RestaurantService(repoRestaurant.Object, repoUsers.Object, Roles.Object, repoEmpleadoRestaurant.Object, mapper, useRestaurant.Object);
-                var result = servicio.AddRestaurant(restDTO);
-
-            }
-            catch (Exception ex)
+                var ex = Assert.Throws<SystemException>(() => useCase.ValidateModel(rest));                
+            }catch(Exception ex)
             {
-                Assert.Contains("Invalid Phone", ex.Message); ;
+                Assert.Contains("Invalid Phone", ex.Message);
             }
         }
 
         [Fact]
         public async Task ValidatePhoneNumberLarge()
-        {
-            try
+        {            
+            RestaurantesDTO restDTO = data.RestaurantDTO();
+            Restaurantes rest = data.Restaurant();
+            UsuarioClaims claims = data.UserAdminClaims();
+            Usuarios usuarios = data.Users();
+            var config = new MapperConfiguration(opts => opts.AddMaps(new[]
             {
-                RestaurantesDTO restDTO = data.RestaurantDTO();
-                Restaurantes rest = data.Restaurant();
-                UsuarioClaims claims = data.UserAdminClaims();
-                Usuarios usuarios = data.Users();
-                var config = new MapperConfiguration(opts => opts.AddMaps(new[]
-                {
-                typeof(Mapp),
-                }));
+            typeof(Mapp),
+            }));
 
-                rest.Telefono = "3123123123123123";
-                mapper = config.CreateMapper();
-                repoRestaurant.Setup(x => x.Add(rest)).Returns(rest);
-                repoUsers.Setup(x => x.GetUserID(rest.DocumentoId)).ReturnsAsync(usuarios);
-                Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
-                Restaurant useCase = new Restaurant();
-                useCase.ValidateModel(rest);
-                useCase.ValidateUser(usuarios);
-                RestaurantService servicio = new RestaurantService(repoRestaurant.Object, repoUsers.Object, Roles.Object, repoEmpleadoRestaurant.Object, mapper, useRestaurant.Object);
-                var result = servicio.AddRestaurant(restDTO);
+            rest.Telefono = "3123123123123123";
+            mapper = config.CreateMapper();
+            repoRestaurant.Setup(x => x.Add(rest)).Returns(rest);
+            repoUsers.Setup(x => x.GetUserID(rest.DocumentoId)).ReturnsAsync(usuarios);
+            Roles.Setup(x => x.getToken()).ReturnsAsync(claims);
+            Restaurant useCase = new Restaurant();                
+            RestaurantService servicio = new RestaurantService(repoRestaurant.Object, repoUsers.Object, Roles.Object, repoEmpleadoRestaurant.Object, mapper, useRestaurant.Object);            
+            var ex =  Assert.Throws<Exception>(() => useCase.ValidateModel(rest));
+            Assert.Contains("Validation error: Invalid Phone", ex.Message.ToString());            
 
-            }
-            catch (Exception ex)
-            {
-                Assert.Contains("Invalid Phone", ex.Message); ;
-            }
+
+
         }
 
         [Fact]
@@ -223,10 +215,10 @@ namespace HU2
                 Usuarios usuarios = data.Users();
                 var config = new MapperConfiguration(opts => opts.AddMaps(new[]
                 {
-                typeof(Mapp),
-                }));
+            typeof(Mapp),
+            }));
 
-                restDTO.Nombre = "M4CDonalds";
+                rest.Nombre = "12334";
                 mapper = config.CreateMapper();
                 repoRestaurant.Setup(x => x.Add(rest)).Returns(rest);
                 repoUsers.Setup(x => x.GetUserID(rest.DocumentoId)).ReturnsAsync(usuarios);
@@ -235,12 +227,11 @@ namespace HU2
                 useCase.ValidateModel(rest);
                 useCase.ValidateUser(usuarios);
                 RestaurantService servicio = new RestaurantService(repoRestaurant.Object, repoUsers.Object, Roles.Object, repoEmpleadoRestaurant.Object, mapper, useRestaurant.Object);
-                var result = servicio.AddRestaurant(restDTO);
-
+                var ex = Assert.Throws<SystemException>(() => useCase.ValidateModel(rest));
             }
             catch (Exception ex)
             {
-                Assert.Contains("Invalid Restaurant Name", ex.Message); ;
+                Assert.Contains("Validation error: Invalid Restaurant Name", ex.Message.ToString());
             }
         }
     }

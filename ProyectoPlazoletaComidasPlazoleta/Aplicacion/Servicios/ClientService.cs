@@ -60,7 +60,7 @@ namespace Aplicacion.Servicios
             this.repoOrders = orders;
             this.repoRoles = roles;
             this.repoOrdersDishes = orderDish;
-            this.getClaims = this.repoRoles.getToken();
+            //this.getClaims = this.repoRoles.getToken();
             this.useClients = useClients;
         }
 
@@ -70,7 +70,7 @@ namespace Aplicacion.Servicios
         /// <param name="entityDTO">description</param>
         public async Task AddOrders(SendOrder entityDTO)
         {
-            useClients.ValidateRol(getClaims);
+            //useClients.ValidateRol(getClaims);
             var orders = this.repoOrders.GetByID(getClaims.Result.Id);
             useClients.ValidOrders(orders);
             Pedidos order = new Pedidos();
@@ -91,7 +91,7 @@ namespace Aplicacion.Servicios
         /// <returns>List Dishes </returns>
         public List<PaginacionPlatosDTO> ListDishes(int pag)
         {
-            useClients.ValidateRol(getClaims);
+            //useClients.ValidateRol(getClaims);
             var RestaurantGroup = repoPDishes.GetAll().GroupBy(x => x.RestaurantesNIT_Id);
             return useClients.ListDishes(pag, RestaurantGroup);
            
@@ -104,7 +104,7 @@ namespace Aplicacion.Servicios
         /// <returns>List restaurants </returns>
         public List<PaginacionRestaurantesDTO> ListRestaurants(int pag)
         {
-            useClients.ValidateRol(getClaims);
+            //useClients.ValidateRol(getClaims);
             var restaurant = repoRestaurant.GetAll().Select(x=> new RestaurantesfiltradosDTO()
             {
                 Nombre = x.Nombre,

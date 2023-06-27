@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "ProyectoPlazoletaComidasPlazoleta/1.0.0": {
         "dependencies": {
+          "AWSSDK.SimpleSystemsManagement": "3.7.104.50",
           "Aplicacion": "1.0.0",
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
@@ -16,6 +17,7 @@
           "Microsoft.AspNet.WebApi.Core": "5.2.9",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.0",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.17.2",
           "Newtonsoft.Json": "13.0.1",
           "Swashbuckle.AspNetCore": "6.2.3",
           "System.IdentityModel.Tokens.Jwt": "6.30.1"
@@ -44,6 +46,25 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
             "assemblyVersion": "12.0.0.0",
             "fileVersion": "12.0.1.0"
+          }
+        }
+      },
+      "AWSSDK.Core/3.7.107.8": {
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.107.8"
+          }
+        }
+      },
+      "AWSSDK.SimpleSystemsManagement/3.7.104.50": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.107.8"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.SimpleSystemsManagement.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.104.50"
           }
         }
       },
@@ -346,6 +367,7 @@
           }
         }
       },
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.17.2": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -1264,6 +1286,20 @@
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
     },
+    "AWSSDK.Core/3.7.107.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6S98e0sYWeSokj99E6fKDxWPXjQVoWhAS4He4yKssCYbKWW+C37x5OhKSx3FkLtNZj0F42KbqeG0qiNVN5z6pQ==",
+      "path": "awssdk.core/3.7.107.8",
+      "hashPath": "awssdk.core.3.7.107.8.nupkg.sha512"
+    },
+    "AWSSDK.SimpleSystemsManagement/3.7.104.50": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-M/jeIm3RKdKV6d6zoeO3E4xvZXp0iDjTDJhNcgNubKro90QiUv+2OBlJPIOp3G7Ztl2uza/vcdzh8f8tUlRaWg==",
+      "path": "awssdk.simplesystemsmanagement/3.7.104.50",
+      "hashPath": "awssdk.simplesystemsmanagement.3.7.104.50.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -1494,6 +1530,13 @@
       "sha512": "sha512-Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
       "path": "microsoft.openapi/1.2.3",
       "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
+    },
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.17.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5daNXm8Hb016oETmuHXiW8jclmRR9CzM7XrOh2htYhQ/7AAYtqntZ1MrZkh09+JTtdjYdGsy2XIMPe9cg83x5w==",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.17.2",
+      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
