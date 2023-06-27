@@ -19,7 +19,8 @@ using Amazon.Runtime;
 using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-var credentials = new BasicAWSCredentials("AKIAXJTU5J45DOYZV73B", "q93YE9VcKea3ybXc2sTiyIiYI2+B7LFuDAIOZTK5");
+builder.Configuration.AddJsonFile("appsettings.json");
+var credentials = new BasicAWSCredentials(builder.Configuration["AWS:IdKey"], builder.Configuration["AWS:SecretKey"]);
 var client = new AmazonSimpleSystemsManagementClient(credentials, Amazon.RegionEndpoint.USEast1);
 var request = new GetParameterRequest()
 {
@@ -29,11 +30,9 @@ var request = new GetParameterRequest()
 var value = await client.GetParameterAsync(request);
 string connectionString = value.Parameter.Value.ToString();   
 builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
-builder.Configuration.AddJsonFile("appsettings.json");
 request.Name = "SecretKey";
 value = await client.GetParameterAsync(request);
-var secretKey = value.Parameter.Value.ToString();  
-    //builder.Configuration.GetSection("Settings").GetSection("SecretKey").ToString();
+var secretKey = value.Parameter.Value.ToString();   
 var KeyBytes = Encoding.UTF8.GetBytes(secretKey);
 builder.Services.AddAuthentication(config =>
 {
