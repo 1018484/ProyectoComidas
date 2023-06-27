@@ -37,12 +37,7 @@ namespace Aplicacion.Repositorio
         /// <summary>
         /// Repository employee DBbSet
         /// </summary>
-        private readonly IDishes useDishes;
-
-        /// <summary>
-        /// User sesion
-        /// </summary>
-        private Task<UsuarioClaims> getClaims;
+        private readonly IDishes useDishes;       
 
         /// <summary>
         /// initialize class.
@@ -58,8 +53,7 @@ namespace Aplicacion.Repositorio
             this.repoDishes = repoPlatos;  
             this.repoRestaurant = repoRestaurantes;
             this.repoRoles = roles;
-            this.mapper = mapper;
-            //this.getClaims = this.repoRoles.getToken();
+            this.mapper = mapper;            
             this.useDishes = useDishes;
         }
 
@@ -69,13 +63,11 @@ namespace Aplicacion.Repositorio
         /// <param name="entiyDTO">DishDTO</param>
         /// <returns>Dish Adedd</returns>
         public async Task<Platos> AddDish(PlatosDTO entiyDTO)
-        {
-            useDishes.ValidateRol(getClaims);
+        {            
             Platos dish = mapper.Map<Platos>(entiyDTO);          
             dish.Id = 0;
             dish.Activo = true;      
-            var restauranteinfo = repoRestaurant.GetByID(dish.RestaurantesNIT_Id);
-            useDishes.ValidateRestaurant(restauranteinfo, getClaims);
+            var restauranteinfo = repoRestaurant.GetByID(dish.RestaurantesNIT_Id);            
             var result = this.repoDishes.Add(dish);
             this.repoDishes.Confirm();
             return result;
@@ -88,10 +80,8 @@ namespace Aplicacion.Repositorio
         /// <returns>Dish Edited</returns>
         public async Task<Platos> EditDish(PlatosDTO entityDTO)
         {
-            Platos entidad = mapper.Map<Platos>(entityDTO);
-            //useDishes.ValidateRol(getClaims);
-            var restInfo = repoRestaurant.GetByID(entidad.RestaurantesNIT_Id);
-            useDishes.ValidateRestaurant(restInfo, getClaims);      
+            Platos entidad = mapper.Map<Platos>(entityDTO);            
+            var restInfo = repoRestaurant.GetByID(entidad.RestaurantesNIT_Id);                  
             var select = repoDishes.GetByRestaurantNIT(entidad.NombrePlato, entidad.RestaurantesNIT_Id);
             useDishes.ValidateDish(select);
             select.Precio = entidad.Precio;

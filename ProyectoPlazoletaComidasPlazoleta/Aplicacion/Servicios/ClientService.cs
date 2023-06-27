@@ -43,12 +43,7 @@ namespace Aplicacion.Servicios
         /// <summary>
         /// Use Case Clients
         /// </summary>
-        private readonly IClients useClients;
-
-        /// <summary>
-        /// User sesion
-        /// </summary
-        private Task<UsuarioClaims> getClaims;
+        private readonly IClients useClients;        
 
         /// <summary>
         /// User sesion
@@ -59,8 +54,7 @@ namespace Aplicacion.Servicios
             this.repoPDishes = dish;
             this.repoOrders = orders;
             this.repoRoles = roles;
-            this.repoOrdersDishes = orderDish;
-            //this.getClaims = this.repoRoles.getToken();
+            this.repoOrdersDishes = orderDish;            
             this.useClients = useClients;
         }
 
@@ -69,13 +63,9 @@ namespace Aplicacion.Servicios
         /// </summary>
         /// <param name="entityDTO">description</param>
         public async Task AddOrders(SendOrder entityDTO)
-        {
-            //useClients.ValidateRol(getClaims);
-            var orders = this.repoOrders.GetByID(getClaims.Result.Id);
-            useClients.ValidOrders(orders);
+        {            
             Pedidos order = new Pedidos();
-            order.Pedido_Id = Guid.NewGuid();
-            order.Cliente_Id = getClaims.Result.Id;
+            order.Pedido_Id = Guid.NewGuid();            
             order.Fecha = DateTime.Now;            
             order.Estado = (int)EnumStatus.Pendiente;
             order.RestaurantesNIT_Id = entityDTO.RestauranteNIT;
@@ -90,8 +80,7 @@ namespace Aplicacion.Servicios
         /// <param name="pag">data for page</param>
         /// <returns>List Dishes </returns>
         public List<PaginacionPlatosDTO> ListDishes(int pag)
-        {
-            //useClients.ValidateRol(getClaims);
+        {          
             var RestaurantGroup = repoPDishes.GetAll().GroupBy(x => x.RestaurantesNIT_Id);
             return useClients.ListDishes(pag, RestaurantGroup);
            
@@ -103,8 +92,7 @@ namespace Aplicacion.Servicios
         /// <param name="pag">data for page</param>
         /// <returns>List restaurants </returns>
         public List<PaginacionRestaurantesDTO> ListRestaurants(int pag)
-        {
-            //useClients.ValidateRol(getClaims);
+        {           
             var restaurant = repoRestaurant.GetAll().Select(x=> new RestaurantesfiltradosDTO()
             {
                 Nombre = x.Nombre,
@@ -137,8 +125,7 @@ namespace Aplicacion.Servicios
         }
 
         public void CancelOrder(Guid orderID)
-        {
-            //useClients.ValidateRol(getClaims);
+        {            
             repoOrdersDishes.Delete(orderID);
             repoOrdersDishes.Confirm();
 

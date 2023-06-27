@@ -55,12 +55,7 @@ namespace Aplicacion.Servicios
         /// <summary>
         /// Repository Get User Remoto httpCLient
         /// </summary>
-        private readonly IUsersRemotoRepository<Usuarios, int> repoUerRemoto;
-
-        /// <summary>
-        /// User sesion
-        /// </summary>
-        private Task<UsuarioClaims> getClaims;
+        private readonly IUsersRemotoRepository<Usuarios, int> repoUerRemoto;      
 
 
         /// <summary>
@@ -78,8 +73,7 @@ namespace Aplicacion.Servicios
         {
             this.repoOrders = Orders;
             this.repoRoles = Roles;
-            this.repoEmployeeRestaurant = employeeRestaurant;
-            //this.getClaims = this.repoRoles.getToken();
+            this.repoEmployeeRestaurant = employeeRestaurant;          
             this.repoOrdersDishes = repoOrdersDishes;
             this.mapper = mapper; 
             this.useEmployee = useEmployee;
@@ -93,11 +87,7 @@ namespace Aplicacion.Servicios
         /// <param name="orders">List orders to assign</param>
         public void AssignOrder(List<Guid> orders)
         { 
-            //useEmployee.ValidateRol(getClaims);
-            foreach (var order in orders)
-            {
-                repoOrders.Update(order, int.Parse(getClaims.Result.Id), (int)EnumStatus.EnPreparacion, 0);
-            }            
+            throw new NotImplementedException();                   
         }
 
         /// <summary>
@@ -106,10 +96,8 @@ namespace Aplicacion.Servicios
         /// <param name="filter">Filter</param>
         /// <returns>List orders</returns>
         public async Task<List<PaginacionPedidos>>ListOrders(PedidsoFiltroDTO filter)
-        {                             
-            int restaurantID = repoEmployeeRestaurant.GetByID(int.Parse(getClaims.Result.Id)).RestauranteNIT;          
-            var ordersDishes = repoOrdersDishes.GetOrders(restaurantID, filter.Estado).GroupBy(p=> p.Pedido_Id);
-            return useEmployee.pageOders(ordersDishes);
+        {
+            throw new NotImplementedException();            
         }
 
         /// <summary>
@@ -131,8 +119,7 @@ namespace Aplicacion.Servicios
                     To = user.Celular,
                     Message = rnd.Next(0, 1000).ToString(),
                 };
-
-                repoOrders.Update(dto.PedidoId, int.Parse(getClaims.Result.Id), (int)EnumStatus.Listo, int.Parse(message.Message));
+                
                 //await repoMessage.SendMessageAsync(message);
             }
             else if (dto.Estado == (int)EnumStatus.Entregado)
@@ -146,8 +133,7 @@ namespace Aplicacion.Servicios
                 {
                     throw new Exception("Invalid Code");
                 }
-
-                repoOrders.Update(dto.PedidoId, int.Parse(getClaims.Result.Id), (int)EnumStatus.Entregado, dto.Codigo);
+                
             }
 
         }

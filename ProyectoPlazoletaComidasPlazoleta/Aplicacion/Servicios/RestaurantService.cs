@@ -50,11 +50,6 @@ namespace Applicacion.Repositorio
         private readonly IRestaurant useRestaurant;
 
         /// <summary>
-        /// User sesion
-        /// </summary>
-        private Task<UsuarioClaims> getClaims;
-
-        /// <summary>
         /// initialize class.
         /// </summary>   
         /// <param name="mapper">AutoMapper</param>        
@@ -69,8 +64,7 @@ namespace Applicacion.Repositorio
             this.repoUerRemoto = repoUsuario;            
             this.repoRoles = repoRoles;
             this.mapper = mapper;
-            this.repoEmployeeRestaurant = employeeRestaurant;            
-            //this.getClaims =  this.repoRoles.getToken();       
+            this.repoEmployeeRestaurant = employeeRestaurant;                      
             this.useRestaurant = useRestaurant;
         }
 
@@ -80,12 +74,10 @@ namespace Applicacion.Repositorio
         /// <param name="entityDTO">Restaurant DTO</param>
         /// <returns>Restaurant Creeated</returns>
         public async Task<Restaurantes> AddRestaurant(RestaurantesDTO entityDTO)
-        {            
-            //useRestaurant.ValidateRol(getClaims);
+        {           
+            
             Restaurantes restaurant = mapper.Map<Restaurantes>(entityDTO);
-            useRestaurant.ValidateModel(restaurant);             
-            //var usuario = await repoUerRemoto.GetUserID(restaurant.DocumentoId);
-            //useRestaurant.ValidateUser(usuario);           
+            useRestaurant.ValidateModel(restaurant);            
             var result = repoRestaurant.Add(restaurant);
             this.repoRestaurant.Confirm();
             return result;
@@ -97,11 +89,10 @@ namespace Applicacion.Repositorio
         /// <param name="ownerID">Owner ID</param> 
         public async Task AddEmployeeRestaurant(int ownerID)
         {
-            //useRestaurant.ValidateRol(getClaims);
             EmpleadosRestaurantes employeerestaurant = new EmpleadosRestaurantes()
             {
                 EmpleadoId = ownerID,
-                RestauranteNIT = repoRestaurant.ObtenerById(int.Parse(getClaims.Result.Id)).NIT_Id 
+                RestauranteNIT = 1231
             };
 
             repoEmployeeRestaurant.Add(employeerestaurant);
