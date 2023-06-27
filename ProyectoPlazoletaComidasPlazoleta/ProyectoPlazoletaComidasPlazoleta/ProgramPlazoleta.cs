@@ -19,8 +19,6 @@ using Amazon.Runtime;
 using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Configuration.AddJsonFile("appsettings.json");
-//builder.Configuration.AddSystemsManager("/Docker");
 string connectionString = builder.Configuration["ConnectionStrings"];
 builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
 var secretKey = builder.Configuration["SecretKey"];   
