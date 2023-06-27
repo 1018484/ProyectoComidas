@@ -20,7 +20,9 @@ using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.json");
-var credentials = new BasicAWSCredentials(builder.Configuration["AWS:IdKey"], builder.Configuration["AWS:SecretKey"]);
+var id = builder.Configuration["AWS:IdKey"];
+var key = builder.Configuration["AWS:SecretKey"];
+var credentials = new BasicAWSCredentials(id, key);
 var client = new AmazonSimpleSystemsManagementClient(credentials, Amazon.RegionEndpoint.USEast1);
 var request = new GetParameterRequest()
 {
