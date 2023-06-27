@@ -19,22 +19,11 @@ using Amazon.Runtime;
 using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddJsonFile("appsettings.json");
-var id = builder.Configuration["AWS:IdKey"];
-var key = builder.Configuration["AWS:SecretKey"];
-var credentials = new BasicAWSCredentials(id, key);
-var client = new AmazonSimpleSystemsManagementClient(credentials, Amazon.RegionEndpoint.USEast1);
-var request = new GetParameterRequest()
-{
-    Name = "DataBase"
-};
-
-var value = await client.GetParameterAsync(request);
-string connectionString = value.Parameter.Value.ToString();   
+//builder.Configuration.AddJsonFile("appsettings.json");
+//builder.Configuration.AddSystemsManager("/Docker");
+string connectionString = builder.Configuration["ConnectionStrings"];
 builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
-request.Name = "SecretKey";
-value = await client.GetParameterAsync(request);
-var secretKey = value.Parameter.Value.ToString();   
+var secretKey = builder.Configuration["SecretKey"];   
 var KeyBytes = Encoding.UTF8.GetBytes(secretKey);
 builder.Services.AddAuthentication(config =>
 {
@@ -55,12 +44,8 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
-request.Name = "userService";
-value = await client.GetParameterAsync(request);
-var userService = value.Parameter.Value.ToString();
-request.Name = "messageService";
-value = await client.GetParameterAsync(request);
-var messageService = value.Parameter.Value.ToString();
+var userService = builder.Configuration["userService"];
+var messageService = builder.Configuration["messageService"];
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Usuarios",

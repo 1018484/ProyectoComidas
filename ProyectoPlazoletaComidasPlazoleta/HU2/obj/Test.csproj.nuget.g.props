@@ -26,5 +26,6 @@
     <PkgMicrosoft_VisualStudio_Azure_Containers_Tools_Targets Condition=" '$(PkgMicrosoft_VisualStudio_Azure_Containers_Tools_Targets)' == '' ">C:\Users\jaime.osorio_pragma\.nuget\packages\microsoft.visualstudio.azure.containers.tools.targets\1.17.2</PkgMicrosoft_VisualStudio_Azure_Containers_Tools_Targets>
     <PkgAWSSDK_Core Condition=" '$(PkgAWSSDK_Core)' == '' ">C:\Users\jaime.osorio_pragma\.nuget\packages\awssdk.core\3.7.107.8</PkgAWSSDK_Core>
     <PkgAWSSDK_SimpleSystemsManagement Condition=" '$(PkgAWSSDK_SimpleSystemsManagement)' == '' ">C:\Users\jaime.osorio_pragma\.nuget\packages\awssdk.simplesystemsmanagement\3.7.104.50</PkgAWSSDK_SimpleSystemsManagement>
+    <PkgAWSSDK_AppConfigData Condition=" '$(PkgAWSSDK_AppConfigData)' == '' ">C:\Users\jaime.osorio_pragma\.nuget\packages\awssdk.appconfigdata\3.7.0.23</PkgAWSSDK_AppConfigData>
   </PropertyGroup>
 </Project>

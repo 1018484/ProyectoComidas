@@ -9,6 +9,7 @@
       "ProyectoPlazoletaComidasPlazoleta/1.0.0": {
         "dependencies": {
           "AWSSDK.SimpleSystemsManagement": "3.7.104.50",
+          "Amazon.Extensions.Configuration.SystemsManager": "5.1.0",
           "Aplicacion": "1.0.0",
           "AutoMapper": "12.0.1",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
@@ -24,6 +25,20 @@
         },
         "runtime": {
           "ProyectoPlazoletaComidasPlazoleta.dll": {}
+        }
+      },
+      "Amazon.Extensions.Configuration.SystemsManager/5.1.0": {
+        "dependencies": {
+          "AWSSDK.AppConfigData": "3.7.0.23",
+          "AWSSDK.Extensions.NETCore.Setup": "3.7.1",
+          "AWSSDK.SimpleSystemsManagement": "3.7.104.50",
+          "Microsoft.Extensions.Configuration": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/Amazon.Extensions.Configuration.SystemsManager.dll": {
+            "assemblyVersion": "5.1.0.0",
+            "fileVersion": "5.1.0.0"
+          }
         }
       },
       "AutoMapper/12.0.1": {
@@ -49,11 +64,36 @@
           }
         }
       },
+      "AWSSDK.AppConfigData/3.7.0.23": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.107.8"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.AppConfigData.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.0.23"
+          }
+        }
+      },
       "AWSSDK.Core/3.7.107.8": {
         "runtime": {
           "lib/netcoreapp3.1/AWSSDK.Core.dll": {
             "assemblyVersion": "3.3.0.0",
             "fileVersion": "3.7.107.8"
+          }
+        }
+      },
+      "AWSSDK.Extensions.NETCore.Setup/3.7.1": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.107.8",
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AWSSDK.Extensions.NETCore.Setup.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.1.0"
           }
         }
       },
@@ -244,6 +284,11 @@
           "Microsoft.Extensions.Logging.Abstractions": "6.0.0",
           "Microsoft.Extensions.Options": "6.0.0",
           "Microsoft.Extensions.Primitives": "6.0.0"
+        }
+      },
+      "Microsoft.Extensions.Configuration/2.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0"
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
@@ -1272,6 +1317,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Amazon.Extensions.Configuration.SystemsManager/5.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yXJCEHQT5qyP60slNzs4voPGeekZLeTf42sU9JTiZbjXJWmVNxpQ2q0SzaiVUv9NIfFLvD4/p+cw0P5QbIqqXQ==",
+      "path": "amazon.extensions.configuration.systemsmanager/5.1.0",
+      "hashPath": "amazon.extensions.configuration.systemsmanager.5.1.0.nupkg.sha512"
+    },
     "AutoMapper/12.0.1": {
       "type": "package",
       "serviceable": true,
@@ -1286,12 +1338,26 @@
       "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
     },
+    "AWSSDK.AppConfigData/3.7.0.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uHQycPmRkvtsa8k74zVChOKSavaPJWpvSPzYbeCoqIt79glRAhZXshtcEi4Dq6O4rLVnQQgEdv2tSA/Gs6WfWg==",
+      "path": "awssdk.appconfigdata/3.7.0.23",
+      "hashPath": "awssdk.appconfigdata.3.7.0.23.nupkg.sha512"
+    },
     "AWSSDK.Core/3.7.107.8": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-6S98e0sYWeSokj99E6fKDxWPXjQVoWhAS4He4yKssCYbKWW+C37x5OhKSx3FkLtNZj0F42KbqeG0qiNVN5z6pQ==",
       "path": "awssdk.core/3.7.107.8",
       "hashPath": "awssdk.core.3.7.107.8.nupkg.sha512"
+    },
+    "AWSSDK.Extensions.NETCore.Setup/3.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cm7D75uispA3h/WwMEQVBMmFPPFwRvFQz8fyLwJEB9uqWYfTOMrRTcynMxHnrdoMyQnfCjByRTzHuFgWELmB6Q==",
+      "path": "awssdk.extensions.netcore.setup/3.7.1",
+      "hashPath": "awssdk.extensions.netcore.setup.3.7.1.nupkg.sha512"
     },
     "AWSSDK.SimpleSystemsManagement/3.7.104.50": {
       "type": "package",
@@ -1411,6 +1477,13 @@
       "sha512": "sha512-Ve3BlCzhAlVp5IgO3+8dacAhZk1A0GlIlFNkAcfR2TfAibLKWIt5DhVJZfu4YtW+XZ89OjYf/agMcgjDtPxdGA==",
       "path": "microsoft.extensions.caching.memory/6.0.0",
       "hashPath": "microsoft.extensions.caching.memory.6.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-L51zGiDlJ4dPpKhFnP6grn2AQlZix9SvyEJ+HO7j/C2lyGA+cd6aDLqJTUhbXZGZ9zaa11eHvz14zG9HV24DRA==",
+      "path": "microsoft.extensions.configuration/2.0.2",
+      "hashPath": "microsoft.extensions.configuration.2.0.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
       "type": "package",

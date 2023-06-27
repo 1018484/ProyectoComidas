@@ -52,7 +52,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task CreateDish()
+        public void CreateDish()
         {
             var config = new MapperConfiguration(opts => opts.AddMaps(new[]
             {
@@ -75,11 +75,11 @@ namespace HU2
             usecase.ValidateRol(task2);
             usecase.ValidateRestaurant(rest, task2);
             DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper, useDishes.Object);
-            var resultado = await servicio.AddDish(DishDTO);
+            var resultado =  servicio.AddDish(DishDTO);
         }
 
         [Fact]
-        public async Task ValidateRol()
+        public void ValidateRol()
         {
             try
             {
@@ -104,7 +104,7 @@ namespace HU2
                 usecase.ValidateRol(task2);
                 usecase.ValidateRestaurant(rest, task2);
                 DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper, useDishes.Object);
-                var resultado = await servicio.AddDish(DishDTO);
+                var resultado =  servicio.AddDish(DishDTO);
 
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task ExisteRestaurante()
+        public void ExisteRestaurante()
         {
             try
             {
@@ -139,7 +139,7 @@ namespace HU2
                 usecase.ValidateRol(task2);
                 usecase.ValidateRestaurant(rest, task2);
                 DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper, useDishes.Object);
-                var resultado = await servicio.AddDish(DishDTO);
+                var resultado = servicio.AddDish(DishDTO);
 
             }
             catch (Exception ex)
@@ -149,7 +149,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task EditarPlato()
+        public void EditarPlato()
         {
             try
             {
@@ -175,7 +175,7 @@ namespace HU2
                 usecase.ValidateRestaurant(rest, task2);
                 usecase.ValidateDish(dish);
                 DishesService servicio = new DishesService(repoDish.Object, repoRestaurant.Object, Roles.Object, mapper, useDishes.Object);
-                var resultado = await servicio.EditDish(DishDTO);
+                var resultado = servicio.EditDish(DishDTO);
 
             }
             catch (Exception ex)

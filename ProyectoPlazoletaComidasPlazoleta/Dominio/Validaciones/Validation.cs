@@ -57,8 +57,7 @@ namespace Aplicacion.Validaciones
             {
                 return string.Empty;
             }
-
-            bool result = false;
+            
             if (Regex.IsMatch(dato, @"^\d+$"))
             {
                 return "Invalid Restaurant Name";

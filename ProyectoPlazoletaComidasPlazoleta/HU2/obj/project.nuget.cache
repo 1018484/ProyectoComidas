@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "XF7TB/APIWlYDdHBLUPOQz/RFM/vY8uOm228AKPZAZcMHrHCSOAYBYBe6ayTXum68oU6tiTgK0kL2YNDTyTHHw==",
+  "dgSpecHash": "0EPokxhsnPDxYRiATqEm3TzgsJNq6kSIBw7fhfGER0LLN05CMeRZRuX7wutRgrc14DgDpIghsbTgAQNe2OL2ZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidasPlazoleta\\HU2\\Test.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\amazon.extensions.configuration.systemsmanager\\5.1.0\\amazon.extensions.configuration.systemsmanager.5.1.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\awssdk.appconfigdata\\3.7.0.23\\awssdk.appconfigdata.3.7.0.23.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\awssdk.core\\3.7.107.8\\awssdk.core.3.7.107.8.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\awssdk.extensions.netcore.setup\\3.7.1\\awssdk.extensions.netcore.setup.3.7.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\awssdk.simplesystemsmanagement\\3.7.104.50\\awssdk.simplesystemsmanagement.3.7.104.50.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",

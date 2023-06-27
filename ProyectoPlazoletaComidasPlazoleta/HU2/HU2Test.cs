@@ -51,7 +51,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task CreateRestaurant()
+        public void CreateRestaurant()
         {
             try
             {
@@ -82,7 +82,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task UserDoesNotExist()
+        public void  UserDoesNotExist()
         {
             try
             {
@@ -116,7 +116,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task ValidatePhone()
+        public void  ValidatePhone()
         {
             try
             {
@@ -146,7 +146,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task ValidatePhoneNumberLarge()
+        public void ValidatePhoneNumberLarge()
         {            
             RestaurantesDTO restDTO = data.RestaurantDTO();
             Restaurantes rest = data.Restaurant();
@@ -172,7 +172,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task PhoneNumberAceptIndicator()
+        public void PhoneNumberAceptIndicator()
         {
 
             try
@@ -205,7 +205,7 @@ namespace HU2
         }
 
         [Fact]
-        public async Task Validanombrederestaurante()
+        public void Validanombrederestaurante()
         {
             try
             {

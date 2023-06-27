@@ -70,7 +70,7 @@ namespace Aplicacion.Repositorio
         /// <returns>Dish Adedd</returns>
         public async Task<Platos> AddDish(PlatosDTO entiyDTO)
         {
-            //useDishes.ValidateRol(getClaims);
+            useDishes.ValidateRol(getClaims);
             Platos dish = mapper.Map<Platos>(entiyDTO);          
             dish.Id = 0;
             dish.Activo = true;      
