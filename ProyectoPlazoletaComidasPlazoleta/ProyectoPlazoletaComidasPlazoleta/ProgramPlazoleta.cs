@@ -14,11 +14,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Dominio.User_Case;
+using Amazon.SimpleSystemsManagement;
+using Amazon.Runtime;
+using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSQL"), b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
-builder.Configuration.AddJsonFile("appsettings.json");
-var secretKey = builder.Configuration.GetSection("Settings").GetSection("SecretKey").ToString();
+string connectionString = builder.Configuration["ConnectionStrings:ConexionSQL"];
+builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
+var secretKey = builder.Configuration["Settings:SecretKey"];   
 var KeyBytes = Encoding.UTF8.GetBytes(secretKey);
 builder.Services.AddAuthentication(config =>
 {
@@ -39,12 +42,14 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
+var userService = builder.Configuration["userService"];
+var messageService = builder.Configuration["messageService"];
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Usuarios",
-    client => client.BaseAddress = new Uri("https://localhost:7191"));
+    client => client.BaseAddress = new Uri(userService));
 builder.Services.AddHttpClient("Mensageria",
-    client => client.BaseAddress = new Uri("https://localhost:7218"));
+    client => client.BaseAddress = new Uri(messageService));
 builder.Services.AddScoped<IRestaurantRespository<Restaurantes, int>, RestaurantRepository>();
 builder.Services.AddScoped<IUsersRemotoRepository<Usuarios, int>, UserRemotoRepository>();
 builder.Services.AddSingleton<IRoles, RolesRepository>();

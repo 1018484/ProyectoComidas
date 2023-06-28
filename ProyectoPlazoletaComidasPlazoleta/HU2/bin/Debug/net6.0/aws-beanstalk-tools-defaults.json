@@ -1,0 +1,21 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net6.0",
+    "self-contained" : false,
+    "application"    : "ProyectoPlazoletaComidasPlazoleta",
+    "environment"    : "TestNew",
+    "app-path"       : "/",
+    "iis-website"    : "Default Web Site",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-09368bf1c9bf6fac8\";\"aws:ec2:vpc,Subnets\"=\"subnet-005aa5277db55fb8f\"",
+    "solution-stack"       : "64bit Windows Server Core 2019 v2.11.5 running IIS 10.0",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "testnew",
+    "instance-type"        : "t3a.medium",
+    "key-pair"             : "",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "ProyectoPlazoletaComidasP-RecipeBeanstalkServiceRo-NZ1SNAFPPORT"
+}

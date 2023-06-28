@@ -11,6 +11,7 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("4e808907-43be-449d-b138-9a5efe3f12fe")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProyectoPlazoletaComidasPlazoleta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
