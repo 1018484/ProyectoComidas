@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "0EPokxhsnPDxYRiATqEm3TzgsJNq6kSIBw7fhfGER0LLN05CMeRZRuX7wutRgrc14DgDpIghsbTgAQNe2OL2ZA==",
+  "dgSpecHash": "900wp4MY5xnMAqUpUXlUGUCRgO9FYwx7pkLWSfzMMx40rVb0NUrxUeFkh4tYJVwfMmr4PLELJAh01FgQaws6aA==",
   "success": true,
   "projectFilePath": "C:\\Users\\jaime.osorio_pragma\\Documents\\ProyectoComidas\\ProyectoPlazoletaComidasPlazoleta\\HU2\\Test.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,7 @@
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.mvc.testing\\6.0.0\\microsoft.aspnetcore.mvc.testing.6.0.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.aspnetcore.testhost\\6.0.0\\microsoft.aspnetcore.testhost.6.0.0.nupkg.sha512",
-    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
+    "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.codecoverage\\17.6.3\\microsoft.codecoverage.17.6.3.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\jaime.osorio_pragma\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",

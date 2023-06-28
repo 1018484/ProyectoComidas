@@ -79,3 +79,8 @@ C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasP
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\obj\release\net6.0\ref\ProyectoPlazoletaComidasPlazoleta.dll
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\AWSSDK.Core.dll
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\AWSSDK.SimpleSystemsManagement.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\aws-beanstalk-tools-defaults.json
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\Amazon.Extensions.Configuration.SystemsManager.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\AWSSDK.AppConfigData.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\AWSSDK.Extensions.NETCore.Setup.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\ProyectoPlazoletaComidasPlazoleta\bin\Release\net6.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll

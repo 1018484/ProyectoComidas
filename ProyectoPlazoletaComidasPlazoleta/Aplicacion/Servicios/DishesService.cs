@@ -24,11 +24,6 @@ namespace Aplicacion.Repositorio
         /// </summary>
         private readonly IRestaurantRespository<Restaurantes, int> repoRestaurant;
 
-        /// <summary>
-        /// Repository Valid token and sesion
-        /// </summary>
-        private readonly IRoles repoRoles;
-
         // <summary>
         /// AutoMapper
         /// </summary>
@@ -51,8 +46,7 @@ namespace Aplicacion.Repositorio
         public DishesService(IDishesRepository<Platos, string, int> repoPlatos, IRestaurantRespository<Restaurantes, int> repoRestaurantes, IRoles roles, IMapper mapper, IDishes useDishes)
         {
             this.repoDishes = repoPlatos;  
-            this.repoRestaurant = repoRestaurantes;
-            this.repoRoles = roles;
+            this.repoRestaurant = repoRestaurantes;            
             this.mapper = mapper;            
             this.useDishes = useDishes;
         }
@@ -66,8 +60,7 @@ namespace Aplicacion.Repositorio
         {            
             Platos dish = mapper.Map<Platos>(entiyDTO);          
             dish.Id = 0;
-            dish.Activo = true;      
-            var restauranteinfo = repoRestaurant.GetByID(dish.RestaurantesNIT_Id);            
+            dish.Activo = true;                  
             var result = this.repoDishes.Add(dish);
             this.repoDishes.Confirm();
             return result;
@@ -80,8 +73,7 @@ namespace Aplicacion.Repositorio
         /// <returns>Dish Edited</returns>
         public async Task<Platos> EditDish(PlatosDTO entityDTO)
         {
-            Platos entidad = mapper.Map<Platos>(entityDTO);            
-            var restInfo = repoRestaurant.GetByID(entidad.RestaurantesNIT_Id);                  
+            Platos entidad = mapper.Map<Platos>(entityDTO);                              
             var select = repoDishes.GetByRestaurantNIT(entidad.NombrePlato, entidad.RestaurantesNIT_Id);
             useDishes.ValidateDish(select);
             select.Precio = entidad.Precio;

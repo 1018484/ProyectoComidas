@@ -19,9 +19,9 @@ using Amazon.Runtime;
 using Amazon.SimpleSystemsManagement.Model;
 
 var builder = WebApplication.CreateBuilder(args);
-string connectionString = builder.Configuration["ConnectionStrings"];
+string connectionString = builder.Configuration["ConnectionStrings:ConexionSQL"];
 builder.Services.AddDbContext<Db_Context>(opciones => opciones.UseSqlServer(connectionString, b => b.MigrationsAssembly("ProyectoPlazoletaComidasPlazoleta")));
-var secretKey = builder.Configuration["SecretKey"];   
+var secretKey = builder.Configuration["Settings:SecretKey"];   
 var KeyBytes = Encoding.UTF8.GetBytes(secretKey);
 builder.Services.AddAuthentication(config =>
 {

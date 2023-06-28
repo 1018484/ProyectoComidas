@@ -28,11 +28,6 @@ namespace Aplicacion.Servicios
         private readonly IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> repoEmployeeRestaurant;
 
         /// <summary>
-        /// Repository Valid token and sesion
-        /// </summary>
-        private readonly IRoles repoRoles;
-
-        /// <summary>
         /// Repository DishOrders DBbSet
         /// </summary>
         private readonly IDishesOrdersRepository<PedidosPlatos, Guid> repoOrdersDishes;
@@ -71,8 +66,7 @@ namespace Aplicacion.Servicios
         /// <param name="useEmployee">Intance use case Employee</param>
         public EmployeeService(IOrdersRepository<Pedidos, string> Orders, IRoles Roles, IEmployeeRestaurantRepository<EmpleadosRestaurantes, int> employeeRestaurant, IDishesOrdersRepository<PedidosPlatos, Guid> repoOrdersDishes, IMapper mapper, IEmployee useEmployee, IMessageRemotoRepository repoMessage, IUsersRemotoRepository<Usuarios, int> repoUerRemoto)
         {
-            this.repoOrders = Orders;
-            this.repoRoles = Roles;
+            this.repoOrders = Orders;          
             this.repoEmployeeRestaurant = employeeRestaurant;          
             this.repoOrdersDishes = repoOrdersDishes;
             this.mapper = mapper; 

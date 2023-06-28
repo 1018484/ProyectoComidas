@@ -31,11 +31,6 @@ namespace Aplicacion.Servicios
         private readonly IOrdersRepository<Pedidos, string> repoOrders ;
 
         /// <summary>
-        /// Repository Valid token and sesion
-        /// </summary>
-        private readonly IRoles repoRoles;
-
-        /// <summary>
         /// Repository DishOrders DBbSet
         /// </summary>
         private readonly IDishesOrdersRepository<PedidosPlatos, Guid> repoOrdersDishes;
@@ -52,8 +47,7 @@ namespace Aplicacion.Servicios
         {
             this.repoRestaurant = rest;
             this.repoPDishes = dish;
-            this.repoOrders = orders;
-            this.repoRoles = roles;
+            this.repoOrders = orders;            
             this.repoOrdersDishes = orderDish;            
             this.useClients = useClients;
         }

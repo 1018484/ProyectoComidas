@@ -450,3 +450,7 @@ C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasP
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\obj\Release\net6.0\Test.pdb
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\obj\Release\net6.0\Test.genruntimeconfig.cache
 C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\obj\Release\net6.0\ref\Test.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Release\net6.0\aws-beanstalk-tools-defaults.json
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Release\net6.0\Amazon.Extensions.Configuration.SystemsManager.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Release\net6.0\AWSSDK.AppConfigData.dll
+C:\Users\jaime.osorio_pragma\Documents\ProyectoComidas\ProyectoPlazoletaComidasPlazoleta\HU2\bin\Release\net6.0\AWSSDK.Extensions.NETCore.Setup.dll

@@ -17,6 +17,7 @@
           "Infraestructure": "1.0.0",
           "Microsoft.AspNet.WebApi.Core": "5.2.9",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.0",
+          "Microsoft.CodeCoverage": "17.6.3",
           "Microsoft.EntityFrameworkCore.Design": "6.0.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.17.2",
           "Newtonsoft.Json": "13.0.1",
@@ -147,6 +148,14 @@
           "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "6.0.21.52608"
+          }
+        }
+      },
+      "Microsoft.CodeCoverage/17.6.3": {
+        "runtime": {
+          "lib/netcoreapp3.1/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "17.600.1423.27404"
           }
         }
       },
@@ -1393,6 +1402,13 @@
       "sha512": "sha512-eIhpX25uUn33Ornnh718V2G/nESvk3TNX2FjTarv634GLfE50Fhz2geJ/QYpSmFaUIQ1hkZPfd9i0LcpZ9bfLQ==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.0",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512"
+    },
+    "Microsoft.CodeCoverage/17.6.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Gorg6F1dOxlI28yHYKhbQ3pOOfHeW6sUfsmwFQFaIV+xttUAZ+l8KarHIfsR+rBAnjY9VH71BXvPXBuObCkXsw==",
+      "path": "microsoft.codecoverage/17.6.3",
+      "hashPath": "microsoft.codecoverage.17.6.3.nupkg.sha512"
     },
     "Microsoft.CSharp/4.7.0": {
       "type": "package",
